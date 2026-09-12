@@ -10,6 +10,9 @@
 - [x] Add Slayer Tower combat definitions for all 8 NPC types — 2026-09-12
 - [x] Populate Slayer Tower with floor-by-floor NPC spawns — 2026-09-12
 - [x] Add Slayer Tower staircase handlers (objects 2114, 2118-2122) — 2026-09-12
+- [ ] **Fix staircase route-finding failure** — objects 2114/2118-2122 trigger "I can't reach that!" due to engine-level `ObjectPathAction.walkTo()` route-finding failure (`route.success=false`). Cache properties (`clipMask`/`clipType`/`impenetrable`) likely block pathfinding to the object tile. Needs diagnostic dump of `ObjectType` properties to confirm root cause — may require engine or cache override fix
+- [ ] **Add spikey chain handler** — object 16537 (`spikey_chain`, has RSCM mapping) gets "Nothing interesting happens". Route-finding succeeds but no plugin bound. Add `onObjOption("object.spikey_chain", "climb-up")` handler
+- [ ] **Add Slayer Tower door handlers** — objects 2111/2112/2113 need opened-variant IDs discovered at runtime before implementation
 - [ ] Add more slayer masters (Vannaka, Chaeldar, Konar, Nieve, Duradel)
 - [ ] Implement slayer points shop
 - [ ] Add superior slayer monsters

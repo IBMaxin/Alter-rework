@@ -21,3 +21,4 @@ first-launch-example
 /dev-settings.yml
 dump.hprof
 /.kotlin/
+*.zip
