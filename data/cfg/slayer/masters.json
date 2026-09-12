@@ -4,9 +4,13 @@
     "level": 50,
     "pointsPerTask": 15,
     "tasks": [
+      "crawling_hand",
+      "banshee",
+      "infernal_mage",
       "gargoyles",
       "nechryael",
       "abyssal_demons",
+      "aberrant_spectre",
       "dust_devils",
       "bloodveld",
       "greater_demons",

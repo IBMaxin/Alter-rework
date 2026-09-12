@@ -1,5 +1,53 @@
 [
   {
+    "taskName": "crawling_hand",
+    "categoryId": 41,
+    "npcIds": ["npc.crawling_hand_453", "npc.crawling_hand_454"],
+    "requiredLevel": 5,
+    "xp": 12.0,
+    "bonusXp": 300.0,
+    "amountMin": 18,
+    "amountMax": 28,
+    "masters": ["npc.duradel_13622"],
+    "weight": 6.0
+  },
+  {
+    "taskName": "banshee",
+    "categoryId": 43,
+    "npcIds": ["npc.banshee_414"],
+    "requiredLevel": 15,
+    "xp": 22.0,
+    "bonusXp": 400.0,
+    "amountMin": 12,
+    "amountMax": 17,
+    "masters": ["npc.duradel_13622"],
+    "weight": 6.0
+  },
+  {
+    "taskName": "infernal_mage",
+    "categoryId": 44,
+    "npcIds": ["npc.infernal_mage_443", "npc.infernal_mage_444", "npc.infernal_mage_445", "npc.infernal_mage_446", "npc.infernal_mage_447"],
+    "requiredLevel": 45,
+    "xp": 60.0,
+    "bonusXp": 1200.0,
+    "amountMin": 12,
+    "amountMax": 17,
+    "masters": ["npc.duradel_13622"],
+    "weight": 7.0
+  },
+  {
+    "taskName": "aberrant_spectre",
+    "categoryId": 47,
+    "npcIds": ["npc.aberrant_spectre_2", "npc.aberrant_spectre_3", "npc.aberrant_spectre_4", "npc.aberrant_spectre_5", "npc.aberrant_spectre_6", "npc.aberrant_spectre_7"],
+    "requiredLevel": 60,
+    "xp": 90.0,
+    "bonusXp": 1800.0,
+    "amountMin": 12,
+    "amountMax": 17,
+    "masters": ["npc.duradel_13622"],
+    "weight": 7.0
+  },
+  {
     "taskName": "gargoyles",
     "categoryId": 46,
     "npcIds": ["npc.gargoyle_412", "npc.gargoyle_413", "npc.gargoyle_1543"],
