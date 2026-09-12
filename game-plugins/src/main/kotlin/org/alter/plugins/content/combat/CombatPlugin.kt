@@ -125,7 +125,6 @@ class CombatPlugin(
                         route.add(diagonalMove)
                     }
                     if (route.isEmpty()) {
-                        pawn.forceChat("Broke")
                         return true
                     }
                     pawn.walkRoute(route, stepType = StepType.NORMAL)

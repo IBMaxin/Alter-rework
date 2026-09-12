@@ -13,6 +13,7 @@ import org.alter.game.model.combat.AttackStyle
 import org.alter.game.model.combat.CombatClass
 import org.alter.game.model.combat.CombatStyle
 import org.alter.game.model.combat.NpcCombatDef
+import org.alter.game.model.combat.NpcSkills
 
 /**
  * @author Tom <rspsmods@gmail.com>
@@ -226,6 +227,23 @@ class Npc private constructor(val id: Int, world: World, val spawnTile: Tile) : 
             level: Int,
         ) {
             maxLevels[skill] = level
+        }
+
+        /**
+         * Copies the combat skill levels from [combatDef] into both the current
+         * and max level for each of the five npc skills.
+         */
+        fun applyCombatStats(combatDef: NpcCombatDef) {
+            setMaxLevel(NpcSkills.ATTACK, combatDef.attack)
+            setMaxLevel(NpcSkills.STRENGTH, combatDef.strength)
+            setMaxLevel(NpcSkills.DEFENCE, combatDef.defence)
+            setMaxLevel(NpcSkills.MAGIC, combatDef.magic)
+            setMaxLevel(NpcSkills.RANGED, combatDef.ranged)
+            setCurrentLevel(NpcSkills.ATTACK, combatDef.attack)
+            setCurrentLevel(NpcSkills.STRENGTH, combatDef.strength)
+            setCurrentLevel(NpcSkills.DEFENCE, combatDef.defence)
+            setCurrentLevel(NpcSkills.MAGIC, combatDef.magic)
+            setCurrentLevel(NpcSkills.RANGED, combatDef.ranged)
         }
 
         /**

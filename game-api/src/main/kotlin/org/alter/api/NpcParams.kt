@@ -5,37 +5,6 @@ import org.alter.game.model.combat.NpcCombatDef
 import org.alter.game.model.weightedTableBuilder.LootTable
 
 /**
- * @author Cl0udS3c
- */
-data class MeleeDefence(val stab: Int, val slash: Int, val crush: Int)
-data class RangeDefence(val darts: Int, val arrows: Int, val bolts: Int)
-
-data class MagicDefence(val magic: Int, val elementsWeakness: ElementalWeakness?)
-
-enum class Elements {
-    EARTH,
-    AIR,
-    WATER,
-    FIRE
-}
-data class ElementalWeakness(var element: Elements, var percent: Int)
-
-
-
-
-
-/**
- * @author Tom <rspsmods@gmail.com>
- */
-object NpcSkills {
-    const val ATTACK = 0
-    const val STRENGTH = 1
-    const val DEFENCE = 2
-    const val MAGIC = 3
-    const val RANGED = 4
-}
-
-/**
  * @author Tom <rspsmods@gmail.com>
  * https://oldschool.runescape.wiki/w/Monster_attribute
  */
@@ -139,11 +108,11 @@ class NpcCombatBuilder {
 
         return NpcCombatDef(
             hitpoints = maxHealth,
-            attack = attack,
-            defence = defence,
-            strength = strength,
-            ranged = ranged,
-            magic = magic,
+            attack = attack.coerceAtLeast(1),
+            defence = defence.coerceAtLeast(1),
+            strength = strength.coerceAtLeast(1),
+            ranged = ranged.coerceAtLeast(1),
+            magic = magic.coerceAtLeast(1),
             attackSpeed = attackSpeed,
             attackAnimation = defaultAttackAnim,
             blockAnimation = defaultBlockAnim,

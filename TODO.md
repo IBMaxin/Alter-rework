@@ -1,9 +1,9 @@
 # TODO
 
 ## High Priority
-- [ ] Fix `World.setNpcDefaults()` — copy `NpcCombatDef` attack/strength/defence/magic/ranged into `Npc.Stats` at spawn time
-- [ ] Fix `defence {}` DSL block in `NpcCombatDsl.kt:103-107` — currently discards result
-- [ ] Replace or remove "Broke" forceChat in `CombatPlugin.kt:128` — it's a debug message for pathfinding failures
+- [x] Fix `World.setNpcDefaults()` — copies `NpcCombatDef` attack/strength/defence/magic/ranged into `Npc.Stats` via `Npc.Stats.applyCombatStats` — 2026-09-12
+- [x] Fix `defence {}` DSL block in `NpcCombatDsl.kt` — dead builders and unused defence data types removed; use `bonuses {}` — 2026-09-12
+- [x] Replace or remove "Broke" forceChat in `CombatPlugin.kt` — debug message removed — 2026-09-12
 
 ## Slayer
 - [x] Add missing Slayer Tower tasks (crawling hand, banshee, infernal mage, aberrant spectre) — 2026-09-12
@@ -27,7 +27,7 @@
 - [x] Replace black_demon_1432 placeholders with OSRS-accurate Slayer Tower population — 2026-09-12
 - [ ] Verify all black demon variant IDs serve different purposes before permanent removal
 - [ ] Add remaining demon variants with proper combat defs if needed
-- [ ] Fix combat skill levels not propagating to runtime stats
+- [x] Fix combat skill levels not propagating to runtime stats — covered by `Npc.Stats.applyCombatStats` regression test — 2026-09-12
 
 ## Loot System — Critical Fixes
 - [x] **Wire up `roll()` in `NpcDeathAction.kt`** — `roll` is called after `executeNpcDeath` and spawns `GroundItem`s with public/despawn delays and ownership — 2026-09-12
@@ -49,12 +49,12 @@
 - [x] **Uncomment KBD drops** — converted the commented block to RSCM string IDs and the current `drops {}` DSL in `KbdConfigsPlugin.kt` — 2026-09-12
 - [x] **Barrows brothers have no individual drops (N/A)** — verified against the OSRS wiki: brothers drop nothing on death except a tertiary Brimstone key (Konar task only). All Barrows equipment comes from the Barrows chest reward system, which is not implemented. 2026-09-12
 - [x] **Migrate Slayer Tower drops to DSL** — all 8 monsters converted from manual `onNpcDeath` loot blocks to `drops {}`; each independent roll group is preserved as its own MAIN table, with nested weighted tables for aberrant spectre herbs/seeds and nechryael seeds — 2026-09-12
+- [x] **Drop-DSL migration complete** — Cow, Black Demon, KBD, and all 8 Slayer Tower monsters use `drops {}`; no manual `onNpcDeath` loot blocks remain in `game-plugins/` — 2026-09-12
 - [ ] **Add rare drop table** — global table referenced by weight from individual NPC tables
 - [ ] **Add herblore secondaries drop table**
 - [ ] **Create `data/cfg/drops/` directory** — optional: move drop tables to JSON for a data-driven approach (like the thieving system)
 
 ## Combat
-- [x] Add Slayer Tower staircase handlers — fixed "I can't reach that!" on all 6 staircases — 2026-09-12
 - [ ] Review pathfinding in Slayer Tower — demons getting stuck
 - [ ] Add demon-specific combat animations (currently using generic `DEMON_DEATH=67`)
 - [ ] Implement demon weakness (slash attacks in OSRS)
