@@ -8,6 +8,11 @@ revision: 228
 home-x: 3218
 home-z: 3218
 
+# Rare drop announcements
+# When true, loot entries flagged with `announce = true` send a private
+# rare-drop message to the credited killer. Disabled by default.
+rare-drop-announcements: false
+
 # Privileges
 # Any privilege you want to be represented in-game you define here.
 privileges:

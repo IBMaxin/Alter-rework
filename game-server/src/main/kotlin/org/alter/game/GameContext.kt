@@ -38,6 +38,10 @@ import org.alter.game.saving.formats.SaveFormatType
  * @param preloadMaps if true, all map data will be be loaded on start-up instead
  * of on-demand.
  *
+ * @param rareDropAnnouncements if true, loot entries flagged with `announce = true`
+ * send a private rare-drop message to the credited killer. Disabled by default so
+ * announcement behavior is completely dormant unless explicitly enabled.
+ *
  * @author Tom <rspsmods@gmail.com>
  */
 data class GameContext(
@@ -54,4 +58,5 @@ data class GameContext(
     val gItemPublicDelay: Int,
     val gItemDespawnDelay: Int,
     val preloadMaps: Boolean,
+    val rareDropAnnouncements: Boolean = false,
 )

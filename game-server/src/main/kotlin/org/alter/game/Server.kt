@@ -113,6 +113,7 @@ class Server {
                     ),
                 gItemDespawnDelay = gameProperties.getOrDefault("gitem-despawn-delay", GroundItem.DEFAULT_DESPAWN_CYCLES),
                 preloadMaps = gameProperties.getOrDefault("preload-maps", false),
+                rareDropAnnouncements = gameProperties.getOrDefault("rare-drop-announcements", false),
             )
 
         val devContext =
