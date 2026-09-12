@@ -14,15 +14,21 @@ import org.alter.game.model.item.*
 import org.alter.game.model.queue.*
 import org.alter.game.model.shop.*
 import org.alter.game.model.timer.*
+import org.alter.game.model.weightedTableBuilder.Loot
+import org.alter.game.model.weightedTableBuilder.LootTable
+import org.alter.game.model.weightedTableBuilder.TableType
 import org.alter.game.plugin.*
 import org.alter.rscm.RSCM.getRSCM
 
 /**
- * Plugin-only Black Demon combat definition and enhanced loot for NPC ID 1432.
+ * Black Demon (`npc.black_demon_1432`) combat definition and drop table.
  *
- * - Registers a combat definition for `npc.black_demon_1432`.
- * - Drops noted Malicious ashes x1 on every eligible kill.
- * - Awards a 50% chance of one enhanced bonus reward per kill.
+ * Loot is authored through the `drops {}` DSL:
+ * - Malicious ashes are always dropped.
+ * - A single weighted bonus roll awards at most one reward. The outer table's
+ *   unallocated remainder represents the chance of dropping nothing, and a
+ *   successful roll selects a rarity tier whose nested table then picks a
+ *   uniformly random reward.
  */
 class BlackDemonPlugin(
     r: PluginRepository,
@@ -31,42 +37,45 @@ class BlackDemonPlugin(
 ) : KotlinPlugin(r, world, server) {
 
     init {
-        val notedAshesId = getRSCM("item.malicious_ashes_noted")
+        val maliciousAshesId = getRSCM("item.malicious_ashes_noted")
 
-        val commonRewards = listOf(
-            Reward(getRSCM("item.fire_rune"), 50, 100),
-            Reward(getRSCM("item.nature_rune"), 20, 40),
-            Reward(getRSCM("item.coal_noted"), 10, 25),
-            Reward(getRSCM("item.death_rune"), 15, 30),
-            Reward(getRSCM("item.mithril_arrow"), 20, 40),
-            Reward(getRSCM("item.iron_arrow"), 40, 80),
-        )
-        val uncommonRewards = listOf(
-            Reward(getRSCM("item.shark_noted"), 2, 4),
-            Reward(getRSCM("item.prayer_potion4_noted"), 1, 3),
-            Reward(getRSCM("item.blood_rune"), 15, 25),
-            Reward(getRSCM("item.adamantite_bar_noted"), 2, 5),
-            Reward(getRSCM("item.runite_ore_noted"), 1, 3),
-            Reward(getRSCM("item.rune_arrow"), 15, 30),
-            Reward(getRSCM("item.law_rune"), 15, 25),
-            Reward(getRSCM("item.adamant_arrow"), 20, 40),
-        )
-        val rareRewards = listOf(
-            Reward(getRSCM("item.rune_scimitar_noted"), 1, 1),
-            Reward(getRSCM("item.rune_longsword_noted"), 1, 1),
-            Reward(getRSCM("item.rune_kiteshield_noted"), 1, 1),
-            Reward(getRSCM("item.rune_full_helm_noted"), 1, 1),
-            Reward(getRSCM("item.uncut_diamond_noted"), 1, 2),
-        )
-        val ultraRareRewards = listOf(
-            Reward(getRSCM("item.rune_platebody_noted"), 1, 1),
-            Reward(getRSCM("item.rune_platelegs_noted"), 1, 1),
-            Reward(getRSCM("item.black_demon_mask_noted"), 1, 1),
-            Reward(getRSCM("item.adamant_kiteshield_noted"), 1, 1),
-            Reward(getRSCM("item.crystal_key_noted"), 1, 2),
+        val commonRewards = uniformPool(
+            Loot(item = getRSCM("item.fire_rune"), min = 50, max = 100, weight = 1),
+            Loot(item = getRSCM("item.nature_rune"), min = 20, max = 40, weight = 1),
+            Loot(item = getRSCM("item.coal_noted"), min = 10, max = 25, weight = 1),
+            Loot(item = getRSCM("item.death_rune"), min = 15, max = 30, weight = 1),
+            Loot(item = getRSCM("item.mithril_arrow"), min = 20, max = 40, weight = 1),
+            Loot(item = getRSCM("item.iron_arrow"), min = 40, max = 80, weight = 1),
         )
 
-        setCombatDef("npc.black_demon_1432") {
+        val uncommonRewards = uniformPool(
+            Loot(item = getRSCM("item.shark_noted"), min = 2, max = 4, weight = 1),
+            Loot(item = getRSCM("item.prayer_potion4_noted"), min = 1, max = 3, weight = 1),
+            Loot(item = getRSCM("item.blood_rune"), min = 15, max = 25, weight = 1),
+            Loot(item = getRSCM("item.adamantite_bar_noted"), min = 2, max = 5, weight = 1),
+            Loot(item = getRSCM("item.runite_ore_noted"), min = 1, max = 3, weight = 1),
+            Loot(item = getRSCM("item.rune_arrow"), min = 15, max = 30, weight = 1),
+            Loot(item = getRSCM("item.law_rune"), min = 15, max = 25, weight = 1),
+            Loot(item = getRSCM("item.adamant_arrow"), min = 20, max = 40, weight = 1),
+        )
+
+        val rareRewards = uniformPool(
+            Loot(item = getRSCM("item.rune_scimitar_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.rune_longsword_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.rune_kiteshield_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.rune_full_helm_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.uncut_diamond_noted"), min = 1, max = 2, weight = 1),
+        )
+
+        val ultraRareRewards = uniformPool(
+            Loot(item = getRSCM("item.rune_platebody_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.rune_platelegs_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.black_demon_mask_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.adamant_kiteshield_noted"), min = 1, weight = 1),
+            Loot(item = getRSCM("item.crystal_key_noted"), min = 1, max = 2, weight = 1),
+        )
+
+        setCombatDef(NPC_ID) {
             species {
                 +NpcSpecies.DEMON
             }
@@ -107,33 +116,46 @@ class BlackDemonPlugin(
                 deathSound = Sound.BLACK_DEMON_DEATH
                 blockSound = Sound.BLACK_DEMON_HIT
             }
-        }
 
-        onNpcDeath("npc.black_demon_1432") {
-            val npc = ctx as? Npc ?: return@onNpcDeath
-            val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-
-            val tile = npc.tile
-
-            world.spawn(GroundItem(notedAshesId, 1, tile, killer))
-
-            if (world.random(1..2) == 1) {
-                val roll = world.random(1..100)
-                val pool = when {
-                    roll <= 50  -> commonRewards
-                    roll <= 75  -> uncommonRewards
-                    roll <= 90  -> rareRewards
-                    roll <= 100 -> ultraRareRewards
-                    else -> null
+            drops {
+                always {
+                    add(item = maliciousAshesId, amount = 1)
                 }
-                if (pool != null && pool.isNotEmpty()) {
-                    val reward = pool[world.random(0..pool.lastIndex)]
-                    val amount = if (reward.min == reward.max) reward.min else world.random(reward.min..reward.max)
-                    world.spawn(GroundItem(reward.itemId, amount, tile, killer))
+
+                main(weight = BONUS_ROLL_TOTAL) {
+                    add(item = commonRewards, amount = 1, weight = BONUS_TIER_COMMON)
+                    add(item = uncommonRewards, amount = 1, weight = BONUS_TIER_UNCOMMON)
+                    add(item = rareRewards, amount = 1, weight = BONUS_TIER_RARE)
+                    add(item = ultraRareRewards, amount = 1, weight = BONUS_TIER_ULTRA_RARE)
                 }
             }
         }
     }
 
-    private data class Reward(val itemId: Int, val min: Int, val max: Int)
+    /**
+     * Builds a nested MAIN table that selects one of [entries] uniformly.
+     */
+    private fun uniformPool(vararg entries: Loot): LootTable {
+        val drops = entries.toMutableSet()
+        return LootTable(
+            tableType = TableType.MAIN,
+            tableWeight = drops.size,
+            drops = drops,
+        )
+    }
+
+    companion object {
+        const val NPC_ID = "npc.black_demon_1432"
+
+        /**
+         * Total weight of the bonus roll. The gap between the sum of the tier
+         * weights below and this total is the "no bonus drop" remainder.
+         */
+        private const val BONUS_ROLL_TOTAL = 200
+
+        private const val BONUS_TIER_COMMON = 50
+        private const val BONUS_TIER_UNCOMMON = 25
+        private const val BONUS_TIER_RARE = 15
+        private const val BONUS_TIER_ULTRA_RARE = 10
+    }
 }

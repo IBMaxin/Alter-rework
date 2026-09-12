@@ -44,7 +44,7 @@
 
 ## Loot System — Content
 - [x] **Add drops to CowPlugin** — moved to `drops { always { bones, cowhide, raw beef } }` in `setCombatDef`; manual `onNpcDeath` spawn block deleted to avoid double drops — 2026-09-12
-- [ ] **Migrate BlackDemon drops to DSL** — currently manual `onNpcDeath` with a custom `Reward` class; move to `drops {}` and delete the manual spawn (do after engine hardening)
+- [x] **Migrate BlackDemon drops to DSL** — `BlackDemonPlugin` now uses `drops { always { … } main { … } }` with nested per-tier tables; manual `onNpcDeath`/`Reward` block deleted — 2026-09-12
 - [ ] **Uncomment KBD drops** — `KbdConfigsPlugin.kt:75-105` has a commented `drops {}` block using obsolete `Items.*` / old builder syntax; convert to RSCM string IDs and the current DSL
 - [ ] **Add drops to Barrows brothers** — all 6 (Verac, Guthan, Torag, Dharok, Karil, Ahrim) have `setCombatDef` but no drops
 - [ ] **Migrate Slayer Tower drops to DSL** — the 8 monsters spawn loot manually in `onNpcDeath`; convert each to `drops {}` once the engine supports their table shapes
