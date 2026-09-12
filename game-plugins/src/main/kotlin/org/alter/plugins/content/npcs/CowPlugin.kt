@@ -91,22 +91,16 @@ class CowPlugin(
             }
         }
 
-        // Cow drops: Bones (always), Cowhide, Raw beef
+        // Cow drops: Bones, Cowhide, Raw beef — all three, every kill
         cow_npc_list.forEach { cow ->
             onNpcDeath(cow) {
                 val npc = ctx as? Npc ?: return@onNpcDeath
                 val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
                 val tile = npc.tile
 
-                // Always drop bones
                 world.spawn(GroundItem(bonesId, 1, tile, killer))
-
-                // Drop cowhide or raw beef (equal chance)
-                if (world.random(1..2) == 1) {
-                    world.spawn(GroundItem(cowhideId, 1, tile, killer))
-                } else {
-                    world.spawn(GroundItem(rawBeefId, 1, tile, killer))
-                }
+                world.spawn(GroundItem(cowhideId, 1, tile, killer))
+                world.spawn(GroundItem(rawBeefId, 1, tile, killer))
             }
         }
     }
