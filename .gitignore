@@ -22,3 +22,6 @@ first-launch-example
 dump.hprof
 /.kotlin/
 *.zip
+/.opencode/
+*.msi
+/data/cfg/rscm/npcs.rscm

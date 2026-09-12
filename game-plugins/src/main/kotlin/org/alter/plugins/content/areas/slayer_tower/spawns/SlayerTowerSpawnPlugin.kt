@@ -79,4 +79,20 @@ class SlayerTowerSpawnPlugin(
         spawnNpc(npc = "npc.abyssal_demon_416", x = 3421, z = 3536, height = 2, walkRadius = 4, direction = Direction.NORTH)
         spawnNpc(npc = "npc.abyssal_demon_415", x = 3423, z = 3535, height = 2, walkRadius = 4, direction = Direction.SOUTH)
     }
+
+    companion object {
+        val SPAWNED_NPC_IDS = listOf(
+            "npc.crawling_hand_448", "npc.crawling_hand_449", "npc.crawling_hand_450",
+            "npc.crawling_hand_451", "npc.crawling_hand_452",
+            "npc.banshee_414",
+            "npc.bloodveld_484", "npc.bloodveld_485", "npc.bloodveld_486", "npc.bloodveld_487",
+            "npc.infernal_mage_443", "npc.infernal_mage_444", "npc.infernal_mage_445",
+            "npc.infernal_mage_446", "npc.infernal_mage_447",
+            "npc.aberrant_spectre_2", "npc.aberrant_spectre_3", "npc.aberrant_spectre_4",
+            "npc.aberrant_spectre_5", "npc.aberrant_spectre_6", "npc.aberrant_spectre_7",
+            "npc.gargoyle_412", "npc.gargoyle_413",
+            "npc.nechryael_8", "npc.nechryael_11",
+            "npc.abyssal_demon_415", "npc.abyssal_demon_416",
+        )
+    }
 }
