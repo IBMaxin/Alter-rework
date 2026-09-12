@@ -59,6 +59,20 @@
 - [ ] Add demon-specific combat animations (currently using generic `DEMON_DEATH=67`)
 - [ ] Implement demon weakness (slash attacks in OSRS)
 
+## Skilling Framework
+- [x] Add `SkillNode`/`SkillLoot` data model + OSRS success formula (`SkillNodeData.kt`) — 2026-09-12
+- [x] Add `SkillingService`/`SkillingRepository` — loads one JSON file per skill from `data/cfg/skilling/`, resolves RSCM ids, indexes by object id — 2026-09-12
+- [x] Add `gatherFromObjects(skill, option, nodes)` DSL + generic gather loop with depletion/respawn — 2026-09-12
+- [x] Add tests: `SkillNodeDataTest`, `SkillingServiceTest`, `GatherRollsTest`, `MiningDataLoadTest` (31 passing) — 2026-09-12
+- [x] Mining pilot: `data/cfg/skilling/mining.json` (11 rocks) + `MiningPlugin` — 2026-09-12
+- [ ] **NEEDS HUMAN VERIFICATION (Mining)** — each entry in `mining.json` carries a `needsHumanVerification` list:
+  - depleted rock object ids are unverified (`depletedKey: null`; rock is removed and respawned instead)
+  - `actionTicks` is fixed at 4 for every rock; OSRS roll speed varies by pickaxe tier (8 bronze .. ~2.75 crystal) and is not implemented
+  - `animation` is fixed at the bronze pickaxe swing (625); per-pickaxe animation is not implemented
+  - Mining Guild accelerated respawns (iron/adamantite/runite) are not modelled
+  - `object.iron_rocks_42833` ("The Node", 0 XP past level 3) is intentionally excluded; `object.coal_rocks` (4676) binding needs confirmation
+- [ ] Add remaining gathering skills (woodcutting, fishing, etc.) as JSON + plugin using the same framework
+
 ## Dev Tooling
 - [ ] Add more cache dump tools (items, objects, animations)
 - [ ] Auto-generate RSCM mappings from cache

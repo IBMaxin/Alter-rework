@@ -1,0 +1,332 @@
+[
+  {
+    "key": "object.clay_rocks",
+    "variants": [
+      "object.clay_rocks_11363"
+    ],
+    "levelRequired": 1,
+    "xp": 5.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 128,
+    "successHigh": 400,
+    "respawnTicks": 2,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.clay",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Clay_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented."
+    ]
+  },
+  {
+    "key": "object.copper_rocks",
+    "variants": [
+      "object.copper_rocks_10943",
+      "object.copper_rocks_11161",
+      "object.copper_rocks_37944"
+    ],
+    "levelRequired": 1,
+    "xp": 17.5,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 100,
+    "successHigh": 350,
+    "respawnTicks": 4,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.copper_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Copper_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "Tutorial Island variants (10079, 37944) share the same ore table and are bound together."
+    ]
+  },
+  {
+    "key": "object.tin_rocks",
+    "variants": [
+      "object.tin_rocks_11360",
+      "object.tin_rocks_11361",
+      "object.tin_rocks_37945"
+    ],
+    "levelRequired": 1,
+    "xp": 17.5,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 100,
+    "successHigh": 350,
+    "respawnTicks": 4,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.tin_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Tin_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "Tutorial Island variants (10080, 37945) share the same ore table and are bound together."
+    ]
+  },
+  {
+    "key": "object.blurite_rocks",
+    "variants": [
+      "object.blurite_rocks_11379"
+    ],
+    "levelRequired": 10,
+    "xp": 17.5,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 90,
+    "successHigh": 350,
+    "respawnTicks": 42,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.blurite_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Blurite_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "Respawn time is 25 seconds per the wiki (42 ticks) but is not confirmed against the cache."
+    ]
+  },
+  {
+    "key": "object.iron_rocks",
+    "variants": [
+      "object.iron_rocks_11365",
+      "object.iron_rocks_36203"
+    ],
+    "levelRequired": 15,
+    "xp": 35.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 96,
+    "successHigh": 350,
+    "respawnTicks": 9,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.iron_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Iron_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "The Node variant (object.iron_rocks_42833) is intentionally excluded because it grants 0 XP past level 3.",
+      "Mining Guild respawn (2.4s) is not modelled; all iron rocks use the standard 5.4s respawn."
+    ]
+  },
+  {
+    "key": "object.silver_rocks",
+    "variants": [
+      "object.silver_rocks_11369",
+      "object.silver_rocks_36205"
+    ],
+    "levelRequired": 20,
+    "xp": 40.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 25,
+    "successHigh": 200,
+    "respawnTicks": 100,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.silver_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Silver_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented."
+    ]
+  },
+  {
+    "key": "object.coal_rocks",
+    "variants": [
+      "object.coal_rocks_11366",
+      "object.coal_rocks_11367",
+      "object.coal_rocks_36204"
+    ],
+    "levelRequired": 30,
+    "xp": 50.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 16,
+    "successHigh": 100,
+    "respawnTicks": 50,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.coal",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Coal_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "The base coal rock object id (4676) is bound alongside the standard variants; verify it exposes a Mine option."
+    ]
+  },
+  {
+    "key": "object.gold_rocks",
+    "variants": [
+      "object.gold_rocks_11371",
+      "object.gold_rocks_36206"
+    ],
+    "levelRequired": 40,
+    "xp": 65.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 7,
+    "successHigh": 75,
+    "respawnTicks": 100,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.gold_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Gold_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "The Witchaven 'perfect' gold ore variant is not modelled."
+    ]
+  },
+  {
+    "key": "object.mithril_rocks",
+    "variants": [
+      "object.mithril_rocks_11373",
+      "object.mithril_rocks_36207"
+    ],
+    "levelRequired": 55,
+    "xp": 80.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 4,
+    "successHigh": 50,
+    "respawnTicks": 200,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.mithril_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Mithril_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented."
+    ]
+  },
+  {
+    "key": "object.adamantite_rocks",
+    "variants": [
+      "object.adamantite_rocks_11375",
+      "object.adamantite_rocks_36208"
+    ],
+    "levelRequired": 70,
+    "xp": 95.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 2,
+    "successHigh": 25,
+    "respawnTicks": 400,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.adamantite_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Adamantite_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "Mining Guild respawn (120s) is not modelled; all adamantite rocks use the standard 240s respawn."
+    ]
+  },
+  {
+    "key": "object.runite_rocks_11376",
+    "variants": [
+      "object.runite_rocks_11377",
+      "object.runite_rocks_36209"
+    ],
+    "levelRequired": 85,
+    "xp": 125.0,
+    "actionTicks": 4,
+    "animation": 625,
+    "successLow": 1,
+    "successHigh": 18,
+    "respawnTicks": 1200,
+    "depletedKey": null,
+    "loot": [
+      {
+        "item": "item.runite_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Runite_rocks",
+    "needsHumanVerification": [
+      "depletedKey is null: the depleted rock object id is unverified; the rock is removed and respawned instead.",
+      "actionTicks is fixed at 4; OSRS roll speed depends on the equipped pickaxe tier.",
+      "animation is the bronze pickaxe swinging animation (625); per-pickaxe animation is not implemented.",
+      "Runite has no base object.runite_rocks RSCM entry; the 11376 variant is used as the primary key.",
+      "Mining Guild / Wilderness respawn (360s) is not modelled; all runite rocks use the standard 720s respawn."
+    ]
+  }
+]
