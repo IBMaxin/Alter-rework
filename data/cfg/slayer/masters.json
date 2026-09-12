@@ -1,0 +1,19 @@
+[
+  {
+    "npc": "npc.duradel_13622",
+    "level": 50,
+    "pointsPerTask": 15,
+    "tasks": [
+      "gargoyles",
+      "nechryael",
+      "abyssal_demons",
+      "dust_devils",
+      "bloodveld",
+      "greater_demons",
+      "black_demons",
+      "hellhounds",
+      "kalphite",
+      "warped_creatures"
+    ]
+  }
+]

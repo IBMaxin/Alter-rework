@@ -1,0 +1,122 @@
+[
+  {
+    "taskName": "gargoyles",
+    "categoryId": 46,
+    "npcIds": ["npc.gargoyle_412", "npc.gargoyle_413", "npc.gargoyle_1543"],
+    "requiredLevel": 75,
+    "xp": 105.0,
+    "bonusXp": 2500.0,
+    "amountMin": 130,
+    "amountMax": 180,
+    "masters": ["npc.duradel_13622"],
+    "weight": 8.0
+  },
+  {
+    "taskName": "nechryael",
+    "categoryId": 52,
+    "npcIds": ["npc.nechryael_8", "npc.nechryael_11"],
+    "requiredLevel": 80,
+    "xp": 105.0,
+    "bonusXp": 2600.0,
+    "amountMin": 110,
+    "amountMax": 160,
+    "masters": ["npc.duradel_13622"],
+    "weight": 8.0
+  },
+  {
+    "taskName": "abyssal_demons",
+    "categoryId": 42,
+    "npcIds": ["npc.abyssal_demon_415", "npc.abyssal_demon_416", "npc.abyssal_demon_7241", "npc.abyssal_demon_11239"],
+    "requiredLevel": 85,
+    "xp": 150.0,
+    "bonusXp": 3500.0,
+    "amountMin": 120,
+    "amountMax": 180,
+    "masters": ["npc.duradel_13622"],
+    "weight": 7.0
+  },
+  {
+    "taskName": "dust_devils",
+    "categoryId": 49,
+    "npcIds": ["npc.dust_devil_423", "npc.dust_devil_7249", "npc.dust_devil_11238"],
+    "requiredLevel": 70,
+    "xp": 65.0,
+    "bonusXp": 1800.0,
+    "amountMin": 130,
+    "amountMax": 180,
+    "masters": ["npc.duradel_13622"],
+    "weight": 8.0
+  },
+  {
+    "taskName": "bloodveld",
+    "categoryId": 48,
+    "npcIds": ["npc.bloodveld_484", "npc.bloodveld_485", "npc.bloodveld_486", "npc.bloodveld_487", "npc.bloodveld_3138", "npc.mutated_bloodveld", "npc.mutated_bloodveld_9610", "npc.mutated_bloodveld_9611"],
+    "requiredLevel": 50,
+    "xp": 120.0,
+    "bonusXp": 2000.0,
+    "amountMin": 120,
+    "amountMax": 170,
+    "masters": ["npc.duradel_13622"],
+    "weight": 9.0
+  },
+  {
+    "taskName": "greater_demons",
+    "categoryId": 29,
+    "npcIds": ["npc.greater_demon", "npc.greater_demon_2026", "npc.greater_demon_2027", "npc.greater_demon_2028", "npc.greater_demon_2029", "npc.greater_demon_2030", "npc.greater_demon_2031", "npc.greater_demon_2032", "npc.greater_demon_7244", "npc.greater_demon_7245", "npc.greater_demon_7246", "npc.greater_demon_7871", "npc.greater_demon_7872", "npc.greater_demon_7873", "npc.greater_demon_12387"],
+    "requiredLevel": 1,
+    "xp": 87.0,
+    "bonusXp": 1500.0,
+    "amountMin": 120,
+    "amountMax": 170,
+    "masters": ["npc.duradel_13622"],
+    "weight": 9.0
+  },
+  {
+    "taskName": "black_demons",
+    "categoryId": 30,
+    "npcIds": ["npc.black_demon_1432"],
+    "requiredLevel": 1,
+    "xp": 157.0,
+    "bonusXp": 2400.0,
+    "amountMin": 100,
+    "amountMax": 150,
+    "masters": ["npc.duradel_13622"],
+    "weight": 8.0
+  },
+  {
+    "taskName": "hellhounds",
+    "categoryId": 31,
+    "npcIds": ["npc.hellhound_104", "npc.hellhound_105", "npc.hellhound_3133", "npc.hellhound_7256", "npc.hellhound_7877"],
+    "requiredLevel": 1,
+    "xp": 116.0,
+    "bonusXp": 1700.0,
+    "amountMin": 120,
+    "amountMax": 170,
+    "masters": ["npc.duradel_13622"],
+    "weight": 9.0
+  },
+  {
+    "taskName": "kalphite",
+    "categoryId": 53,
+    "npcIds": ["npc.kalphite_worker", "npc.kalphite_worker_956", "npc.kalphite_worker_961", "npc.kalphite_soldier_957", "npc.kalphite_soldier_958", "npc.kalphite_guardian", "npc.kalphite_guardian_960", "npc.kalphite_guardian_962"],
+    "requiredLevel": 1,
+    "xp": 90.0,
+    "bonusXp": 1600.0,
+    "amountMin": 120,
+    "amountMax": 180,
+    "masters": ["npc.duradel_13622"],
+    "weight": 8.0
+  },
+  {
+    "taskName": "warped_creatures",
+    "categoryId": 122,
+    "npcIds": ["npc.warped_terrorbird", "npc.warped_terrorbird_12492", "npc.warped_terrorbird_12493", "npc.warped_terrorbird_12494", "npc.warped_terrorbird_12495", "npc.warped_terrorbird_12496", "npc.warped_terrorbird_12497", "npc.warped_terrorbird_12498", "npc.warped_terrorbird_12499", "npc.warped_terrorbird_12500", "npc.warped_terrorbird_12501", "npc.warped_tortoise", "npc.mutated_terrorbird", "npc.mutated_tortoise"],
+    "requiredLevel": 56,
+    "xp": 100.0,
+    "bonusXp": 1900.0,
+    "amountMin": 120,
+    "amountMax": 180,
+    "masters": ["npc.duradel_13622"],
+    "weight": 9.0
+  }
+]
