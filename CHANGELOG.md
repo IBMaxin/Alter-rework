@@ -14,12 +14,17 @@
 - **`SlayerTowerDropsIntegrationTest`** — 9 cache-free tests validating registration, table shape, nested weighted tables (aberrant spectre herbs/seeds, nechryael seeds), and roll behaviour for the migrated Slayer Tower definitions
 - **`SlayerTowerRegistryTest`** — cross-references every spawned NPC ID against the per-monster plugin registrations and resolves them through RSCM
 - **Cow drops** — bones, cowhide, and raw beef, all guaranteed on every kill via the `drops {}` DSL, matching OSRS behaviour
+- **Skilling framework** — `SkillNode`/`SkillLoot` data model implementing the OSRS success formula; `SkillingService`/`SkillingRepository` loading one JSON file per skill from `data/cfg/skilling/` and resolving RSCM ids; `gatherFromObjects` DSL with a generic gather loop covering depletion, respawn, node lifetime, and tool-scaled success
+- **Mining** — `data/cfg/skilling/mining.json` (12 rocks including "The Node") + `MiningPlugin`; pickaxe tier table and `MiningActionResolver` applying the best usable pickaxe's speed/animation from the weapon slot or inventory; depleted rocks bound to the "no ore" message
+- **Woodcutting** — `data/cfg/skilling/woodcutting.json` (8 trees) + `WoodcuttingPlugin`; axe tier table and `WoodcuttingActionResolver`; trees persist for their despawn lifetime and deplete into stumps
+- **Skilling tests** — `SkillNodeDataTest`, `SkillingServiceTest`, `GatherRollsTest`, `MiningDataLoadTest`, `PickaxeTest`, `WoodcuttingDataLoadTest`, `AxeTest` (48 tests, cache/RSCM-backed where needed)
 
 ### Changed
 - **Slayer Tower loot migrated to the `drops {}` DSL** — the manual `onNpcDeath` loot blocks for all 8 monsters were replaced by declarative tables; each independent roll group is preserved as its own MAIN table and nested weighted tables cover the aberrant spectre herb/seed and nechryael seed rolls
 - **Slayer Tower content split per monster** — `SlayerTowerCombatPlugin.kt` and `SlayerTowerDropsPlugin.kt` replaced by one self-contained plugin per monster under `content/npcs/slayer_tower/<monster>/`, each owning its combat definition, drop table, and `NPC_IDS` list
 - **Bloodveld registration gap fixed** — bloodvelds `484-487` now all receive the Slayer 50 combat definition (previously only `484` was registered)
 - `SlayerTowerSpawnPlugin` now exposes `SPAWNED_NPC_IDS` for cross-reference testing
+- **Skilling framework generalised** — `SkillNode.lifetimeTicks` enables multi-gather nodes and `GatherAction.successMultiplier` lets a tool scale a node's `successLow`/`successHigh`; mining is unchanged (`lifetimeTicks = 0`). Skilling data is sourced from the OSRS wiki (and cache-verified ids), with unverifiable values flagged per-entry via `needsHumanVerification`
 
 ## [0.0.5] - 2026-09-10
 

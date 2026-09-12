@@ -64,7 +64,7 @@
 - [x] Add `SkillingService`/`SkillingRepository` — loads one JSON file per skill from `data/cfg/skilling/`, resolves RSCM ids, indexes by object id — 2026-09-12
 - [x] Add `gatherFromObjects(skill, option, nodes)` DSL + generic gather loop with depletion/respawn — 2026-09-12
 - [x] Add tests: `SkillNodeDataTest`, `SkillingServiceTest`, `GatherRollsTest`, `MiningDataLoadTest` (31 passing) — 2026-09-12
-- [x] Mining pilot: `data/cfg/skilling/mining.json` (11 rocks) + `MiningPlugin` — 2026-09-12
+- [x] Mining pilot: `data/cfg/skilling/mining.json` (12 rocks) + `MiningPlugin` — 2026-09-12
 - [x] Mining correctness: pickaxe tiers + resolver (speed/animation, weapon-slot or inventory) and depleted rock bindings — 2026-09-12
 - [x] Resolve verification data from cache: rocks only expose `Mine` (Prospect removed 2023-03-15); depleted rocks are `object.rocks_11390/11391/11392` (+ Prifddinas/Varlamore 36202/41549/41550) — 2026-09-12
 - [x] Add `object.iron_rocks_42833` ("The Node", 0 XP) as its own node; allow `xp >= 0.0` — 2026-09-12
@@ -76,7 +76,6 @@
   - Mining Guild accelerated respawns (iron/adamantite/runite) are not modelled
   - `object.coal_rocks` (4676) is RuneLite `MISC_DUMMY_COALROCK1`; binding needs confirmation
   - echo/corrupted pickaxes are omitted (tier unverified) so they read as "no pickaxe"
-- [ ] Add remaining gathering skills (woodcutting, fishing, etc.) as JSON + plugin using the same framework
 - [x] Extend framework: `SkillNode.lifetimeTicks` (multi-gather nodes) + `GatherAction.successMultiplier` (tool-scales success) — 2026-09-12
 - [x] Woodcutting: `data/cfg/skilling/woodcutting.json` (8 trees) + `WoodcuttingPlugin` + `Axe`/`WoodcuttingActionResolver` — 2026-09-12
 - [x] Tests: `AxeTest`, `WoodcuttingDataLoadTest` (185 total passing) — 2026-09-12
