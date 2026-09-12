@@ -108,11 +108,11 @@ class NpcCombatBuilder {
 
         return NpcCombatDef(
             hitpoints = maxHealth,
-            attack = attack,
-            defence = defence,
-            strength = strength,
-            ranged = ranged,
-            magic = magic,
+            attack = attack.coerceAtLeast(1),
+            defence = defence.coerceAtLeast(1),
+            strength = strength.coerceAtLeast(1),
+            ranged = ranged.coerceAtLeast(1),
+            magic = magic.coerceAtLeast(1),
             attackSpeed = attackSpeed,
             attackAnimation = defaultAttackAnim,
             blockAnimation = defaultBlockAnim,

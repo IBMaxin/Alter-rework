@@ -2,6 +2,13 @@
 
 ## [Unreleased] - 2026-09-12
 
+### Fixed
+- **NPC combat stats now propagate** — `World.setNpcDefaults` copies `NpcCombatDef` attack/strength/defence/magic/ranged into `Npc.Stats` via `Npc.Stats.applyCombatStats`; `NpcSkills` correctly lives in `game-server` (a server module cannot depend on `game-api`)
+- **`NpcCombatBuilder` levels floor at 1** — a combat definition without a `stats {}` block no longer yields attack/strength/defence/magic/ranged of 0
+- **`mainRoll()` first-entry bias fixed** — main-table rolls now draw `1..tableWeight`
+- **Dead `defence {}` NPC combat DSL removed** — defensive stats are configured through `bonuses {}`
+- **Debug "Broke" forceChat removed** from combat pathfinding
+
 ### Added
 - **Slayer Tower drops** — per-monster drop tables for all 8 NPC types (crawling hand, banshee, infernal mage, bloodveld, aberrant spectre, gargoyle, nechryael, abyssal demon), authored with the `drops {}` DSL
 - **`SlayerTowerDropsIntegrationTest`** — 9 cache-free tests validating registration, table shape, nested weighted tables (aberrant spectre herbs/seeds, nechryael seeds), and roll behaviour for the migrated Slayer Tower definitions
@@ -28,11 +35,6 @@
 - Slayer Tower spawns unified to NPC ID 1432 (removed 4 legacy variants)
 - Slayer task `black_demons` NPC pool reduced to single entry (`npc.black_demon_1432`)
 - Black demon loot table: increased bonus chance to 50%, added noted sharks/prayer potions, increased quantities across all tiers
-
-### Known Issues
-- `World.setNpcDefaults()` does not propagate `NpcCombatDef.attack/strength/defence/magic/ranged` into `Npc.Stats` — combat skill levels remain 1 at runtime despite definition. HP, attack speed, species, bonuses, and sounds work correctly.
-- `defence {}` DSL block in `NpcCombatDsl.kt:103-107` discards results — use `bonuses {}` instead
-- NPC "Broke" debug message in `CombatPlugin.kt:128` fires when pathfinding fails (pre-existing)
 
 ## [0.0.5] - 2026-09-12
 

@@ -1,9 +1,9 @@
 # TODO
 
 ## High Priority
-- [ ] Fix `World.setNpcDefaults()` — copy `NpcCombatDef` attack/strength/defence/magic/ranged into `Npc.Stats` at spawn time
-- [ ] Fix `defence {}` DSL block in `NpcCombatDsl.kt:103-107` — currently discards result
-- [ ] Replace or remove "Broke" forceChat in `CombatPlugin.kt:128` — it's a debug message for pathfinding failures
+- [x] Fix `World.setNpcDefaults()` — copies `NpcCombatDef` attack/strength/defence/magic/ranged into `Npc.Stats` via `Npc.Stats.applyCombatStats` — 2026-09-12
+- [x] Fix `defence {}` DSL block in `NpcCombatDsl.kt` — dead builders and unused defence data types removed; use `bonuses {}` — 2026-09-12
+- [x] Replace or remove "Broke" forceChat in `CombatPlugin.kt` — debug message removed — 2026-09-12
 
 ## Slayer
 - [x] Add missing Slayer Tower tasks (crawling hand, banshee, infernal mage, aberrant spectre) — 2026-09-12
@@ -27,7 +27,7 @@
 - [x] Replace black_demon_1432 placeholders with OSRS-accurate Slayer Tower population — 2026-09-12
 - [ ] Verify all black demon variant IDs serve different purposes before permanent removal
 - [ ] Add remaining demon variants with proper combat defs if needed
-- [ ] Fix combat skill levels not propagating to runtime stats
+- [x] Fix combat skill levels not propagating to runtime stats — covered by `Npc.Stats.applyCombatStats` regression test — 2026-09-12
 
 ## Loot System — Critical Fixes
 - [x] **Wire up `roll()` in `NpcDeathAction.kt`** — `roll` is called after `executeNpcDeath` and spawns `GroundItem`s with public/despawn delays and ownership — 2026-09-12
