@@ -13,6 +13,7 @@ import org.alter.game.model.move.moveTo
 import org.alter.game.model.move.stopMovement
 import org.alter.game.model.queue.QueueTask
 import org.alter.game.model.queue.TaskPriority
+import org.alter.game.model.weightedTableBuilder.LootTable
 import org.alter.game.model.weightedTableBuilder.roll
 import org.alter.game.plugin.Plugin
 import org.alter.game.service.log.LoggerService
@@ -70,6 +71,14 @@ object NpcDeathAction {
         world.plugins.anyNpcDeath.forEach {
             npc.executePlugin(it)
         }
+        resolveLootContext(killer, npc.combatDef.LootTables)?.let { (killerPlayer, lootTables) ->
+            roll(killerPlayer, lootTables, npc.tile).forEach { drop ->
+                drop.timeUntilPublic = world.gameContext.gItemPublicDelay
+                drop.timeUntilDespawn = world.gameContext.gItemDespawnDelay
+                drop.ownerShipType = 1
+                world.spawn(drop)
+            }
+        }
         if (npc.respawns) {
             NpcInfo(npc).setInaccessible(true)
             npc.reset()
@@ -87,5 +96,22 @@ object NpcDeathAction {
         attr.clear()
         timers.clear()
         world.setNpcDefaults(this)
+    }
+
+    /**
+     * Resolves the killer and loot tables that are eligible for a death drop roll.
+     *
+     * Returns `null` when there is no credited player killer or when the NPC has no
+     * configured DSL loot tables, so callers never roll (or spawn) loot in those cases.
+     */
+    internal fun resolveLootContext(
+        killer: Pawn?,
+        lootTables: List<LootTable>?,
+    ): Pair<Player, List<LootTable>>? {
+        val killerPlayer = killer as? Player ?: return null
+        if (lootTables.isNullOrEmpty()) {
+            return null
+        }
+        return killerPlayer to lootTables
     }
 }

@@ -65,41 +65,32 @@ class BansheePlugin(
                 levelRequirement = 15
                 xp = 22.0
             }
-        }
 
-        NPC_IDS.forEach { npcId ->
-            onNpcDeath(npcId) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                val commonRoll = world.random(1..128)
-                when {
-                    commonRoll <= 11 -> world.spawn(GroundItem(pureEssenceId, 13, tile, killer))
-                    commonRoll <= 22 -> world.spawn(GroundItem(fishingBaitId, 15, tile, killer))
-                    commonRoll <= 27 -> world.spawn(GroundItem(fishingBaitId, 7, tile, killer))
-                    commonRoll <= 32 -> world.spawn(GroundItem(coinsId, 13, tile, killer))
-                    commonRoll <= 47 -> world.spawn(GroundItem(coinsId, 35, tile, killer))
+            drops {
+                main(weight = 128) {
+                    add(item = pureEssenceId, amount = 13, weight = 11)
+                    add(item = fishingBaitId, amount = 15, weight = 11)
+                    add(item = fishingBaitId, amount = 7, weight = 5)
+                    add(item = coinsId, amount = 13, weight = 5)
+                    add(item = coinsId, amount = 35, weight = 15)
                 }
 
-                val runeRoll = world.random(1..128)
-                when {
-                    runeRoll <= 3 -> world.spawn(GroundItem(airRuneId, 3, tile, killer))
-                    runeRoll <= 6 -> world.spawn(GroundItem(cosmicRuneId, 2, tile, killer))
-                    runeRoll <= 8 -> world.spawn(GroundItem(chaosRuneId, 3, tile, killer))
-                    runeRoll <= 9 -> world.spawn(GroundItem(fireRuneId, 7, tile, killer))
-                    runeRoll <= 10 -> world.spawn(GroundItem(chaosRuneId, 7, tile, killer))
+                main(weight = 128) {
+                    add(item = airRuneId, amount = 3, weight = 3)
+                    add(item = cosmicRuneId, amount = 2, weight = 3)
+                    add(item = chaosRuneId, amount = 3, weight = 2)
+                    add(item = fireRuneId, amount = 7, weight = 1)
+                    add(item = chaosRuneId, amount = 7, weight = 1)
                 }
 
-                val uncommonRoll = world.random(1..128)
-                when (uncommonRoll) {
-                    1 -> world.spawn(GroundItem(ironKiteshieldId, 1, tile, killer))
-                    2 -> world.spawn(GroundItem(ironOreId, 1, tile, killer))
-                    3 -> world.spawn(GroundItem(eyeOfNewtId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = ironKiteshieldId, amount = 1, weight = 1)
+                    add(item = ironOreId, amount = 1, weight = 1)
+                    add(item = eyeOfNewtId, amount = 1, weight = 1)
                 }
 
-                if (world.random(1..128) <= 2) {
-                    world.spawn(GroundItem(uncutSapphireId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = uncutSapphireId, amount = 1, weight = 2)
                 }
             }
         }

@@ -30,21 +30,28 @@
 - [ ] Fix combat skill levels not propagating to runtime stats
 
 ## Loot System — Critical Fixes
-- [ ] **Wire up `roll()` in `NpcDeathAction.kt`** — `roll` is imported (line 16) but never called; `NpcCombatDef.LootTables` is populated but never read during death. Add a step after `executeNpcDeath(npc)` (line 69) that calls `roll(killer, npc.combatDef.LootTables)` and spawns the returned `GroundItem`s
-- [ ] **Fix `handleToItem()` tile bug** — `LootTableBuilder.kt:118` uses `Tile(0, 0, 0)` as default; must pass the NPC's actual `tile` and the `killer` player so items spawn at the correct location with the correct owner
-- [ ] **Fix offensive error messages** — `LootTableBuilder.kt:85` (`"fix ur code idiot"`) and line 50 (`"Why be so retarded?"`) need professional replacements
-- [ ] **Remove dead `reroll` val** — `LootTableBuilder.kt:113` is a top-level `val reroll: Boolean = false`, never used
-- [ ] **Fix `preRoll()` logic** — `LootTableBuilder.kt:90` uses `Random.nextInt(loot.weight)` which treats weight as an upper bound, not a probability; semantics are inverted vs `mainRoll()`
+- [x] **Wire up `roll()` in `NpcDeathAction.kt`** — `roll` is called after `executeNpcDeath` and spawns `GroundItem`s with public/despawn delays and ownership — 2026-09-12
+- [x] **Fix `handleToItem()` tile bug** — passes the NPC `tile` and `killer`; the `Tile(0, 0, 0)` default is gone — 2026-09-12
+- [x] **Fix offensive error messages** — `LootTableBuilder.kt` messages rewritten professionally — 2026-09-12
+- [x] **Remove dead `reroll` val** — removed — 2026-09-12
+- [x] **Fix `preRoll()` logic** — weight is now a numerator out of 128 (`0` never succeeds, `128` always succeeds); validated at boot and roll time — 2026-09-12
+- [x] **Implement `announce` and `description` fields** — consumed by `rareDropMessage`/`announceRareDrop`, gated by `game.yml` rare-drop announcements — 2026-09-12
+
+## Loot System — Engine Hardening
+- [x] **Support multiple tables per `TableType`** — each `always`/`main`/`preroll`/`tertiary` block now creates its own table and `roll()` resolves every table of a type; `LootTables` is now a `List` instead of a `Set` — 2026-09-12
+- [x] **PRE_ROLL no longer replaces MAIN** — `roll()` rolls every PRE_ROLL table independently and always evaluates MAIN; a successful pre-roll no longer suppresses the main drop — 2026-09-12
+- [x] **Nested / independent drop tables** — multiple same-type slots plus nested `LootTable`/`KFunction` entries now cover OSRS multi-slot layouts — 2026-09-12
+- [x] **Fix `mainRoll()` inclusive bounds** — `mainRoll(rng)` now draws `1..tableWeight` (`rng.nextInt(tableWeight) + 1`); previously `random(tableWeight)` drew `0..tableWeight`, inflating the first entry's chance. Uniformity is locked by distribution tests — 2026-09-12
 
 ## Loot System — Content
-- [ ] **Uncomment KBD drops** — `KbdConfigsPlugin.kt:75-105` has a full `drops {}` DSL block but it's commented out and uses old `Items.*` constants; convert to RSCM string IDs and uncomment
-- [ ] **Add drops to CowPlugin** — has `setCombatDef` but no drops (bones, cowhide, raw beef)
-- [ ] **Add drops to Barrows brothers** — all 6 (Verac, Guthan, Torag, Dharok, Karil, Ahrim) have `setCombatDef` but no drops
-- [ ] **Migrate BlackDemon drops to DSL** — currently uses manual `onNpcDeath` with custom `Reward` class; once `roll()` is wired up, convert to `drops {}` DSL in `setCombatDef` for consistency
+- [x] **Add drops to CowPlugin** — moved to `drops { always { bones, cowhide, raw beef } }` in `setCombatDef`; manual `onNpcDeath` spawn block deleted to avoid double drops — 2026-09-12
+- [x] **Migrate BlackDemon drops to DSL** — `BlackDemonPlugin` now uses `drops { always { … } main { … } }` with nested per-tier tables; manual `onNpcDeath`/`Reward` block deleted — 2026-09-12
+- [x] **Uncomment KBD drops** — converted the commented block to RSCM string IDs and the current `drops {}` DSL in `KbdConfigsPlugin.kt` — 2026-09-12
+- [x] **Barrows brothers have no individual drops (N/A)** — verified against the OSRS wiki: brothers drop nothing on death except a tertiary Brimstone key (Konar task only). All Barrows equipment comes from the Barrows chest reward system, which is not implemented. 2026-09-12
+- [x] **Migrate Slayer Tower drops to DSL** — all 8 monsters converted from manual `onNpcDeath` loot blocks to `drops {}`; each independent roll group is preserved as its own MAIN table, with nested weighted tables for aberrant spectre herbs/seeds and nechryael seeds — 2026-09-12
 - [ ] **Add rare drop table** — global table referenced by weight from individual NPC tables
 - [ ] **Add herblore secondaries drop table**
-- [ ] **Implement `announce` and `description` fields** — defined on `Loot` data class but never consumed; should broadcast rare drops and show drop notifications
-- [ ] **Create `data/cfg/drops/` directory** — optional: move drop tables to JSON for data-driven approach (like thieving system)
+- [ ] **Create `data/cfg/drops/` directory** — optional: move drop tables to JSON for a data-driven approach (like the thieving system)
 
 ## Combat
 - [x] Add Slayer Tower staircase handlers — fixed "I can't reach that!" on all 6 staircases — 2026-09-12

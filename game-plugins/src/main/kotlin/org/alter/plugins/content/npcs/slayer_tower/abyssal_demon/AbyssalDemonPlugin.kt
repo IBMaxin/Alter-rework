@@ -65,57 +65,48 @@ class AbyssalDemonPlugin(
                 levelRequirement = 85
                 xp = 150.0
             }
-        }
 
-        NPC_IDS.forEach { npcId ->
-            onNpcDeath(npcId) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                world.spawn(GroundItem(abyssalAshesId, 1, tile, killer))
-
-                val coinRoll = world.random(1..128)
-                when {
-                    coinRoll <= 1 -> world.spawn(GroundItem(coinsId, 460, tile, killer))
-                    coinRoll <= 10 -> world.spawn(GroundItem(coinsId, 30, tile, killer))
-                    coinRoll <= 16 -> world.spawn(GroundItem(coinsId, 44, tile, killer))
-                    coinRoll <= 23 -> world.spawn(GroundItem(coinsId, 220, tile, killer))
-                    coinRoll <= 58 -> world.spawn(GroundItem(coinsId, 132, tile, killer))
+            drops {
+                always {
+                    add(item = abyssalAshesId, amount = 1)
                 }
 
-                val runeRoll = world.random(1..128)
-                when {
-                    runeRoll <= 8 -> world.spawn(GroundItem(airRuneId, 50, tile, killer))
-                    runeRoll <= 15 -> world.spawn(GroundItem(chaosRuneId, 10, tile, killer))
-                    runeRoll <= 19 -> world.spawn(GroundItem(bloodRuneId, 7, tile, killer))
-                    runeRoll <= 20 -> world.spawn(GroundItem(lawRuneId, 3, tile, killer))
+                main(weight = 128) {
+                    add(item = coinsId, amount = 460, weight = 1)
+                    add(item = coinsId, amount = 30, weight = 9)
+                    add(item = coinsId, amount = 44, weight = 6)
+                    add(item = coinsId, amount = 220, weight = 7)
+                    add(item = coinsId, amount = 132, weight = 35)
                 }
 
-                val weaponRoll = world.random(1..128)
-                when {
-                    weaponRoll <= 4 -> world.spawn(GroundItem(blackSwordId, 1, tile, killer))
-                    weaponRoll <= 7 -> world.spawn(GroundItem(steelBattleaxeId, 1, tile, killer))
-                    weaponRoll <= 9 -> world.spawn(GroundItem(blackAxeId, 1, tile, killer))
-                    weaponRoll <= 10 -> world.spawn(GroundItem(mithrilKiteshieldId, 1, tile, killer))
-                    weaponRoll <= 11 -> world.spawn(GroundItem(runeChainbodyId, 1, tile, killer))
-                    weaponRoll <= 12 -> world.spawn(GroundItem(runeMedHelmId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = airRuneId, amount = 50, weight = 8)
+                    add(item = chaosRuneId, amount = 10, weight = 7)
+                    add(item = bloodRuneId, amount = 7, weight = 4)
+                    add(item = lawRuneId, amount = 3, weight = 1)
                 }
 
-                val otherRoll = world.random(1..128)
-                when {
-                    otherRoll <= 2 -> world.spawn(GroundItem(lobsterId, 1, tile, killer))
-                    otherRoll <= 4 -> world.spawn(GroundItem(adamantiteBarId, 1, tile, killer))
-                    otherRoll <= 9 -> world.spawn(GroundItem(pureEssenceId, 60, tile, killer))
+                main(weight = 128) {
+                    add(item = blackSwordId, amount = 1, weight = 4)
+                    add(item = steelBattleaxeId, amount = 1, weight = 3)
+                    add(item = blackAxeId, amount = 1, weight = 2)
+                    add(item = mithrilKiteshieldId, amount = 1, weight = 1)
+                    add(item = runeChainbodyId, amount = 1, weight = 1)
+                    add(item = runeMedHelmId, amount = 1, weight = 1)
                 }
 
-                val preRoll = world.random(1..512)
-                when (preRoll) {
-                    1 -> world.spawn(GroundItem(abyssalWhipId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = lobsterId, amount = 1, weight = 2)
+                    add(item = adamantiteBarId, amount = 1, weight = 2)
+                    add(item = pureEssenceId, amount = 60, weight = 5)
                 }
 
-                if (world.random(1..128) <= 5) {
-                    world.spawn(GroundItem(uncutSapphireId, 1, tile, killer))
+                main(weight = 512) {
+                    add(item = abyssalWhipId, amount = 1, weight = 1)
+                }
+
+                main(weight = 128) {
+                    add(item = uncutSapphireId, amount = 1, weight = 5)
                 }
             }
         }

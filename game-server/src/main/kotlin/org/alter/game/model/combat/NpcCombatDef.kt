@@ -40,7 +40,7 @@ data class NpcCombatDef(
     val slayerXp: Double,
     val bonuses: List<Int>,
     val species: Set<Any>,
-    val LootTables: MutableSet<LootTable>?,
+    val LootTables: List<LootTable>?,
     val immunePoison: Boolean,
     val immuneVenom: Boolean,
     val immuneCannons: Boolean,

@@ -117,7 +117,7 @@ class NpcCombatBuilder {
     private var immuneVenom = false
     private var immuneCannons = false
     private var immuneThralls = false
-    var LootTable: MutableSet<LootTable> = mutableSetOf()
+    var LootTable: MutableList<LootTable> = mutableListOf()
 
     fun build(): NpcCombatDef {
         /**

@@ -27,6 +27,24 @@ class NechryaelPlugin(
 ) : KotlinPlugin(r, world, server) {
 
     init {
+        val seedTable = WeightedTableBuilder().apply {
+            main(weight = 100) {
+                add(item = limpwurtSeedId, amount = 1, weight = 25)
+                add(item = toadflaxSeedId, amount = 1, weight = 10)
+                add(item = iritSeedId, amount = 1, weight = 7)
+                add(item = belladonnaSeedId, amount = 1, weight = 6)
+                add(item = poisonIvySeedId, amount = 1, weight = 6)
+                add(item = avantoeSeedId, amount = 1, weight = 6)
+                add(item = cactusSeedId, amount = 1, weight = 6)
+                add(item = potatoCactusSeedId, amount = 1, weight = 6)
+                add(item = kwuarmSeedId, amount = 1, weight = 6)
+                add(item = snapdragonSeedId, amount = 1, weight = 6)
+                add(item = cadantineSeedId, amount = 1, weight = 6)
+                add(item = lantadymeSeedId, amount = 1, weight = 6)
+                add(item = snapeGrassSeedId, amount = 1, weight = 4)
+            }
+        }.LootTables.single()
+
         setCombatDef(*NPC_IDS.toTypedArray()) {
             configs {
                 attackSpeed = 4
@@ -60,78 +78,54 @@ class NechryaelPlugin(
                 levelRequirement = 80
                 xp = 105.0
             }
-        }
 
-        NPC_IDS.forEach { npcId ->
-            onNpcDeath(npcId) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                world.spawn(GroundItem(maliciousAshesId, 1, tile, killer))
-
-                val coinRoll = world.random(1..116)
-                when {
-                    coinRoll <= 1 -> world.spawn(GroundItem(coinsId, 5000, tile, killer))
-                    coinRoll <= 4 -> world.spawn(GroundItem(coinsId, world.random(3000..3500), tile, killer))
-                    coinRoll <= 10 -> world.spawn(GroundItem(coinsId, world.random(2500..2999), tile, killer))
-                    coinRoll <= 20.5 -> world.spawn(GroundItem(coinsId, world.random(1500..2000), tile, killer))
-                    coinRoll <= 33.5 -> world.spawn(GroundItem(coinsId, world.random(1000..1499), tile, killer))
-                    coinRoll <= 36 -> world.spawn(GroundItem(coinsId, world.random(500..999), tile, killer))
+            drops {
+                always {
+                    add(item = maliciousAshesId, amount = 1)
                 }
 
-                val runeRoll = world.random(1..116)
-                when {
-                    runeRoll <= 8 -> world.spawn(GroundItem(chaosRuneId, 37, tile, killer))
-                    runeRoll <= 14 -> world.spawn(GroundItem(deathRuneId, 5, tile, killer))
-                    runeRoll <= 20 -> world.spawn(GroundItem(deathRuneId, 10, tile, killer))
-                    runeRoll <= 25 -> world.spawn(GroundItem(lawRuneId, world.random(25..35), tile, killer))
-                    runeRoll <= 29 -> world.spawn(GroundItem(bloodRuneId, world.random(15..20), tile, killer))
+                main(weight = 116) {
+                    add(item = coinsId, amount = 5000, weight = 1)
+                    add(item = coinsId, min = 3000, max = 3500, weight = 3)
+                    add(item = coinsId, min = 2500, max = 2999, weight = 6)
+                    add(item = coinsId, min = 1500, max = 2000, weight = 10)
+                    add(item = coinsId, min = 1000, max = 1499, weight = 13)
+                    add(item = coinsId, min = 500, max = 999, weight = 3)
                 }
 
-                val weaponRoll = world.random(1..116)
-                when {
-                    weaponRoll <= 4 -> world.spawn(GroundItem(adamantPlatelegsId, 1, tile, killer))
-                    weaponRoll <= 8 -> world.spawn(GroundItem(rune2hSwordId, 1, tile, killer))
-                    weaponRoll <= 11 -> world.spawn(GroundItem(runeFullHelmId, 1, tile, killer))
-                    weaponRoll <= 13 -> world.spawn(GroundItem(adamantKiteshieldId, 1, tile, killer))
-                    weaponRoll <= 14 -> world.spawn(GroundItem(runeBootsId, 1, tile, killer))
+                main(weight = 116) {
+                    add(item = chaosRuneId, amount = 37, weight = 8)
+                    add(item = deathRuneId, amount = 5, weight = 6)
+                    add(item = deathRuneId, amount = 10, weight = 6)
+                    add(item = lawRuneId, min = 25, max = 35, weight = 5)
+                    add(item = bloodRuneId, min = 15, max = 20, weight = 4)
                 }
 
-                if (world.random(1..116) <= 18) {
-                    world.spawn(GroundItem(rollNechryaelSeed(), 1, tile, killer))
-                    world.spawn(GroundItem(rollNechryaelSeed(), 1, tile, killer))
+                main(weight = 116) {
+                    add(item = adamantPlatelegsId, amount = 1, weight = 4)
+                    add(item = rune2hSwordId, amount = 1, weight = 4)
+                    add(item = runeFullHelmId, amount = 1, weight = 3)
+                    add(item = adamantKiteshieldId, amount = 1, weight = 2)
+                    add(item = runeBootsId, amount = 1, weight = 1)
                 }
 
-                val otherRoll = world.random(1..116)
-                when {
-                    otherRoll <= 3 -> world.spawn(GroundItem(tunaId, 1, tile, killer))
-                    otherRoll <= 7 -> world.spawn(GroundItem(softClayId, 25, tile, killer))
+                main(weight = 116) {
+                    add(item = seedTable, amount = 1, weight = 18)
                 }
 
-                if (world.random(1..116) <= 5) {
-                    world.spawn(GroundItem(uncutSapphireId, 1, tile, killer))
+                main(weight = 116) {
+                    add(item = seedTable, amount = 1, weight = 18)
+                }
+
+                main(weight = 116) {
+                    add(item = tunaId, amount = 1, weight = 3)
+                    add(item = softClayId, amount = 25, weight = 4)
+                }
+
+                main(weight = 116) {
+                    add(item = uncutSapphireId, amount = 1, weight = 5)
                 }
             }
-        }
-    }
-
-    private fun rollNechryaelSeed(): Int {
-        return when (world.random(1..100)) {
-            in 1..25 -> limpwurtSeedId
-            in 26..35 -> toadflaxSeedId
-            in 36..42 -> iritSeedId
-            in 43..48 -> belladonnaSeedId
-            in 49..54 -> poisonIvySeedId
-            in 55..60 -> avantoeSeedId
-            in 61..66 -> cactusSeedId
-            in 67..72 -> potatoCactusSeedId
-            in 73..78 -> kwuarmSeedId
-            in 79..84 -> snapdragonSeedId
-            in 85..90 -> cadantineSeedId
-            in 91..96 -> lantadymeSeedId
-            in 97..100 -> snapeGrassSeedId
-            else -> dwarfWeedSeedId
         }
     }
 

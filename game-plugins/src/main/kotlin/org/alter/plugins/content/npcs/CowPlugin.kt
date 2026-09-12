@@ -88,19 +88,14 @@ class CowPlugin(
                     blockSound = Sound.COW_HIT
                     deathSound = Sound.COW_DEATH
                 }
-            }
-        }
 
-        // Cow drops: Bones, Cowhide, Raw beef — all three, every kill
-        cow_npc_list.forEach { cow ->
-            onNpcDeath(cow) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                world.spawn(GroundItem(bonesId, 1, tile, killer))
-                world.spawn(GroundItem(cowhideId, 1, tile, killer))
-                world.spawn(GroundItem(rawBeefId, 1, tile, killer))
+                drops {
+                    always {
+                        add(item = bonesId, amount = 1)
+                        add(item = cowhideId, amount = 1)
+                        add(item = rawBeefId, amount = 1)
+                    }
+                }
             }
         }
     }
