@@ -49,12 +49,12 @@
 - [x] **Uncomment KBD drops** — converted the commented block to RSCM string IDs and the current `drops {}` DSL in `KbdConfigsPlugin.kt` — 2026-09-12
 - [x] **Barrows brothers have no individual drops (N/A)** — verified against the OSRS wiki: brothers drop nothing on death except a tertiary Brimstone key (Konar task only). All Barrows equipment comes from the Barrows chest reward system, which is not implemented. 2026-09-12
 - [x] **Migrate Slayer Tower drops to DSL** — all 8 monsters converted from manual `onNpcDeath` loot blocks to `drops {}`; each independent roll group is preserved as its own MAIN table, with nested weighted tables for aberrant spectre herbs/seeds and nechryael seeds — 2026-09-12
+- [x] **Drop-DSL migration complete** — Cow, Black Demon, KBD, and all 8 Slayer Tower monsters use `drops {}`; no manual `onNpcDeath` loot blocks remain in `game-plugins/` — 2026-09-12
 - [ ] **Add rare drop table** — global table referenced by weight from individual NPC tables
 - [ ] **Add herblore secondaries drop table**
 - [ ] **Create `data/cfg/drops/` directory** — optional: move drop tables to JSON for a data-driven approach (like the thieving system)
 
 ## Combat
-- [x] Add Slayer Tower staircase handlers — fixed "I can't reach that!" on all 6 staircases — 2026-09-12
 - [ ] Review pathfinding in Slayer Tower — demons getting stuck
 - [ ] Add demon-specific combat animations (currently using generic `DEMON_DEATH=67`)
 - [ ] Implement demon weakness (slash attacks in OSRS)
