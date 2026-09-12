@@ -5,6 +5,7 @@
 ### Added
 - **Slayer Tower drops** — per-monster drop tables for all 8 NPC types (crawling hand, banshee, infernal mage, bloodveld, aberrant spectre, gargoyle, nechryael, abyssal demon) via `onNpcDeath` handlers
 - **`SlayerTowerRegistryTest`** — cross-references every spawned NPC ID against the per-monster plugin registrations and resolves them through RSCM
+- **Cow drops** — bones (always) plus a 50/50 cowhide-or-raw-beef drop via `onNpcDeath`. `NEEDS HUMAN VERIFICATION`: OSRS cows drop both cowhide and raw beef (plus bones) every kill, not an either/or roll — rates unconfirmed
 
 ### Changed
 - **Slayer Tower content split per monster** — `SlayerTowerCombatPlugin.kt` and `SlayerTowerDropsPlugin.kt` replaced by one self-contained plugin per monster under `content/npcs/slayer_tower/<monster>/`, each owning its combat definition, drop table, and `NPC_IDS` list

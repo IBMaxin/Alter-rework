@@ -16,6 +16,7 @@ import org.alter.game.model.shop.*
 import org.alter.game.model.timer.*
 import org.alter.game.plugin.*
 import org.alter.plugins.content.combat.isBeingAttacked
+import org.alter.rscm.RSCM.getRSCM
 
 /**
  *  @author <a href="https://github.com/CloudS3c">Cl0ud</a>
@@ -89,5 +90,30 @@ class CowPlugin(
                 }
             }
         }
+
+        // Cow drops: Bones (always), Cowhide, Raw beef
+        cow_npc_list.forEach { cow ->
+            onNpcDeath(cow) {
+                val npc = ctx as? Npc ?: return@onNpcDeath
+                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
+                val tile = npc.tile
+
+                // Always drop bones
+                world.spawn(GroundItem(bonesId, 1, tile, killer))
+
+                // Drop cowhide or raw beef (equal chance)
+                if (world.random(1..2) == 1) {
+                    world.spawn(GroundItem(cowhideId, 1, tile, killer))
+                } else {
+                    world.spawn(GroundItem(rawBeefId, 1, tile, killer))
+                }
+            }
+        }
+    }
+
+    companion object {
+        private val bonesId get() = getRSCM("item.bones")
+        private val cowhideId get() = getRSCM("item.cowhide")
+        private val rawBeefId get() = getRSCM("item.raw_beef")
     }
 }
