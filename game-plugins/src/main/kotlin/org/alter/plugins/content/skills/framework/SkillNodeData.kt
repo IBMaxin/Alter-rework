@@ -43,6 +43,9 @@ data class SkillLoot(
  * @param successLow the OSRS "low" success parameter; success chance when the player is level 1.
  * @param successHigh the OSRS "high" success parameter; success chance when the player is level 99.
  * @param respawnTicks cycles before a depleted node restores; 0 disables depletion.
+ * @param lifetimeTicks cycles a node survives after gathering begins before it
+ * depletes; 0 depletes on the first successful roll (e.g. mining). Woodcutting
+ * trees use their despawn time so several logs can be gathered per tree.
  * @param depletedKey optional RSCM id of the depleted object variant.
  * @param variants additional RSCM ids that resolve to the same node.
  */
@@ -55,6 +58,7 @@ data class SkillNode(
     val successLow: Int = 256,
     val successHigh: Int = 256,
     val respawnTicks: Int = 0,
+    val lifetimeTicks: Int = 0,
     val depletedKey: String? = null,
     val variants: List<String> = emptyList(),
     val loot: List<SkillLoot>,
@@ -78,6 +82,7 @@ data class SkillNode(
         require(successLow >= 0) { "Skill node low success parameter must not be negative, but was $successLow." }
         require(successHigh >= 0) { "Skill node high success parameter must not be negative, but was $successHigh." }
         require(respawnTicks >= 0) { "Skill node respawn ticks must not be negative, but was $respawnTicks." }
+        require(lifetimeTicks >= 0) { "Skill node lifetime ticks must not be negative, but was $lifetimeTicks." }
         require(depletedKey == null || depletedKey.isNotBlank()) { "Skill node depleted key must not be blank." }
         require(variants.all { it.isNotBlank() }) { "Skill node variants must not contain blank ids." }
         require(loot.isNotEmpty()) { "Skill node must define at least one loot entry." }
@@ -91,12 +96,19 @@ data class SkillNode(
      * `P(level) = (1 + floor(low * (99 - level) / 98 + high * (level - 1) / 98 + 0.5)) / 256`
      *
      * clamped to `0.0..1.0`. Levels outside `1..99` are clamped before evaluation.
+     *
+     * [low] and [high] default to this node's values but can be overridden so a
+     * tool (for example a woodcutting axe) can scale the parameters for a roll.
      */
-    fun successChance(level: Int): Double {
+    fun successChance(
+        level: Int,
+        low: Int = successLow,
+        high: Int = successHigh,
+    ): Double {
         val clampLevel = level.coerceIn(1, MAX_SKILL_LEVEL)
         val scaled =
-            successLow * (MAX_SKILL_LEVEL - clampLevel) / (MAX_SKILL_LEVEL - 1).toDouble() +
-                successHigh * (clampLevel - 1) / (MAX_SKILL_LEVEL - 1).toDouble()
+            low * (MAX_SKILL_LEVEL - clampLevel) / (MAX_SKILL_LEVEL - 1).toDouble() +
+                high * (clampLevel - 1) / (MAX_SKILL_LEVEL - 1).toDouble()
         val numerator = 1 + Math.floor(scaled + 0.5).toInt()
         return (numerator / 256.0).coerceIn(0.0, 1.0)
     }

@@ -39,8 +39,13 @@ class ResolvedSkillNode(
     val actionTicks: Int get() = node.actionTicks
     val animation: Int get() = node.animation
     val respawnTicks: Int get() = node.respawnTicks
+    val lifetimeTicks: Int get() = node.lifetimeTicks
 
-    fun successChance(level: Int): Double = node.successChance(level)
+    fun successChance(
+        level: Int,
+        low: Int = node.successLow,
+        high: Int = node.successHigh,
+    ): Double = node.successChance(level, low, high)
 }
 
 /**

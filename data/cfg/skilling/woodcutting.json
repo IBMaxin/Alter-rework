@@ -1,0 +1,286 @@
+[
+  {
+    "key": "object.tree_1276",
+    "variants": [
+      "object.tree_1277",
+      "object.tree_1278",
+      "object.tree_1279",
+      "object.tree_1280",
+      "object.tree_1330",
+      "object.tree_1331",
+      "object.tree_1332"
+    ],
+    "levelRequired": 1,
+    "xp": 25.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 64,
+    "successHigh": 200,
+    "respawnTicks": 59,
+    "lifetimeTicks": 0,
+    "depletedKey": "object.tree_stump",
+    "loot": [
+      {
+        "item": "item.logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Tree",
+    "needsHumanVerification": [
+      "Normal trees are felled after one log; respawn is a fixed 59 ticks (lower bound of the OSRS 36-60s random respawn).",
+      "Dead/evergreen/jungle trees also yield logs at 25 xp but are not bound here.",
+      "Per-variant stump objects are approximated with the shared object.tree_stump.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.oak_tree_8467",
+    "variants": [
+      "object.oak_tree_4533",
+      "object.oak_tree_4540",
+      "object.oak_tree_9734",
+      "object.oak_tree_10820",
+      "object.oak_tree_20806",
+      "object.oak_tree_42395",
+      "object.oak_tree_42831",
+      "object.oak_tree_51772",
+      "object.oak_tree_55913",
+      "object.oak_tree_37969",
+      "object.oak_tree_37970"
+    ],
+    "levelRequired": 15,
+    "xp": 37.5,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 32,
+    "successHigh": 100,
+    "respawnTicks": 14,
+    "lifetimeTicks": 45,
+    "depletedKey": "object.tree_stump",
+    "loot": [
+      {
+        "item": "item.oak_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Oak_tree",
+    "needsHumanVerification": [
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Per-variant stump objects are approximated with the shared object.tree_stump.",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.willow_tree_8488",
+    "variants": [
+      "object.willow_tree_4534",
+      "object.willow_tree_4541",
+      "object.willow_tree_10819",
+      "object.willow_tree_10829",
+      "object.willow_tree_10831",
+      "object.willow_tree_10833"
+    ],
+    "levelRequired": 30,
+    "xp": 67.5,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 16,
+    "successHigh": 50,
+    "respawnTicks": 14,
+    "lifetimeTicks": 50,
+    "depletedKey": "object.tree_stump",
+    "loot": [
+      {
+        "item": "item.willow_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Willow_tree",
+    "needsHumanVerification": [
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Per-variant stump objects are approximated with the shared object.tree_stump.",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.teak_tree",
+    "variants": [
+      "object.teak_tree_15062",
+      "object.teak_tree_30445",
+      "object.teak_tree_36686",
+      "object.teak_tree_40758"
+    ],
+    "levelRequired": 35,
+    "xp": 85.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 15,
+    "successHigh": 46,
+    "respawnTicks": 15,
+    "lifetimeTicks": 50,
+    "depletedKey": "object.tree_stump",
+    "loot": [
+      {
+        "item": "item.teak_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Teak_tree",
+    "needsHumanVerification": [
+      "Only the base object.teak_tree plus a few named variants are bound; the 30437-30444 farming variants are omitted.",
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.maple_tree_4674",
+    "variants": [
+      "object.maple_tree_4535",
+      "object.maple_tree_5126",
+      "object.maple_tree_10832",
+      "object.maple_tree_36681",
+      "object.maple_tree_36682",
+      "object.maple_tree_40754",
+      "object.maple_tree_40755"
+    ],
+    "levelRequired": 45,
+    "xp": 100.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 8,
+    "successHigh": 25,
+    "respawnTicks": 59,
+    "lifetimeTicks": 100,
+    "depletedKey": "object.tree_stump",
+    "loot": [
+      {
+        "item": "item.maple_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Maple_tree",
+    "needsHumanVerification": [
+      "Kandarin Medium Diary bonus (110 xp per log) is not modelled.",
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Per-variant stump objects are approximated with the shared object.tree_stump.",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.mahogany_tree",
+    "variants": [
+      "object.mahogany_tree_30417",
+      "object.mahogany_tree_36688",
+      "object.mahogany_tree_40760"
+    ],
+    "levelRequired": 50,
+    "xp": 125.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 8,
+    "successHigh": 25,
+    "respawnTicks": 14,
+    "lifetimeTicks": 100,
+    "depletedKey": "object.mahogany_tree_stump",
+    "loot": [
+      {
+        "item": "item.mahogany_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Mahogany_tree",
+    "needsHumanVerification": [
+      "Only the base object.mahogany_tree plus a few named variants are bound; the 30407-30416 farming variants are omitted.",
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.yew_tree_8513",
+    "variants": [
+      "object.yew_tree_4536",
+      "object.yew_tree_5121",
+      "object.yew_tree_8503",
+      "object.yew_tree_10822",
+      "object.yew_tree_36683",
+      "object.yew_tree_40756",
+      "object.yew_tree_42391",
+      "object.yew_tree_42427"
+    ],
+    "levelRequired": 60,
+    "xp": 175.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 4,
+    "successHigh": 12,
+    "respawnTicks": 99,
+    "lifetimeTicks": 190,
+    "depletedKey": "object.tree_stump",
+    "loot": [
+      {
+        "item": "item.yew_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Yew_tree",
+    "needsHumanVerification": [
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Per-variant stump objects are approximated with the shared object.tree_stump.",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  },
+  {
+    "key": "object.magic_tree_8409",
+    "variants": [
+      "object.magic_tree_4537",
+      "object.magic_tree_5127",
+      "object.magic_tree_8396",
+      "object.magic_tree_10834",
+      "object.magic_tree_36685"
+    ],
+    "levelRequired": 75,
+    "xp": 250.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 2,
+    "successHigh": 6,
+    "respawnTicks": 199,
+    "lifetimeTicks": 390,
+    "depletedKey": "object.magic_tree_stump",
+    "loot": [
+      {
+        "item": "item.magic_logs",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Magic_tree",
+    "needsHumanVerification": [
+      "Only a few named magic tree variants are bound; many world spawns use other ids.",
+      "Despawn timer does not regenerate when a player stops chopping (simplified).",
+      "Gilded/3rd age/infernal/crystal axe multipliers are estimated; bronze-dragon are from the tree success chart.",
+      "Bird nests, clue nests, the beaver pet, Forestry and group/invisible boosts are not modelled."
+    ]
+  }
+]

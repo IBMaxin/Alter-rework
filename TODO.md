@@ -77,6 +77,16 @@
   - `object.coal_rocks` (4676) is RuneLite `MISC_DUMMY_COALROCK1`; binding needs confirmation
   - echo/corrupted pickaxes are omitted (tier unverified) so they read as "no pickaxe"
 - [ ] Add remaining gathering skills (woodcutting, fishing, etc.) as JSON + plugin using the same framework
+- [x] Extend framework: `SkillNode.lifetimeTicks` (multi-gather nodes) + `GatherAction.successMultiplier` (tool-scales success) — 2026-09-12
+- [x] Woodcutting: `data/cfg/skilling/woodcutting.json` (8 trees) + `WoodcuttingPlugin` + `Axe`/`WoodcuttingActionResolver` — 2026-09-12
+- [x] Tests: `AxeTest`, `WoodcuttingDataLoadTest` (185 total passing) — 2026-09-12
+- [ ] **NEEDS HUMAN VERIFICATION (Woodcutting)** — each entry in `woodcutting.json` carries a `needsHumanVerification` list:
+  - tree despawn timer is simplified (does not regenerate when a player stops chopping)
+  - per-variant stumps are approximated with `object.tree_stump` (except mahogany/magic)
+  - gilded/3rd age/infernal/crystal axe multipliers are estimated from the relative-chance table; bronze-dragon are from the tree success charts
+  - normal-tree respawn uses a fixed 59 ticks (OSRS is a random 36-60s)
+  - bird/clue nests, beaver pet, Forestry, Woodcutting Guild and group/invisible boosts are not modelled
+- [ ] Add fishing (needs a `gatherFromNpcs` DSL + tool requirements)
 
 ## Dev Tooling
 - [ ] Add more cache dump tools (items, objects, animations)

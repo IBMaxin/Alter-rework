@@ -16,10 +16,13 @@ import org.alter.game.plugin.KotlinPlugin
  *
  * @param actionTicks cycles between two gather rolls.
  * @param animation animation played while gathering; negative disables it.
+ * @param successMultiplier scales the node's `successLow`/`successHigh`
+ * parameters for this attempt (a better tool chops/catches more often).
  */
 data class GatherAction(
     val actionTicks: Int,
     val animation: Int,
+    val successMultiplier: Double = 1.0,
 )
 
 /**
@@ -121,14 +124,19 @@ suspend fun gatherFromObject(
             player.animate(action.animation)
         }
 
+        val successLow = (node.node.successLow * action.successMultiplier).toInt()
+        val successHigh = (node.node.successHigh * action.successMultiplier).toInt()
+        var elapsedTicks = 0
+
         while (obj.isSpawned(world)) {
             task.wait(action.actionTicks)
+            elapsedTicks += action.actionTicks
 
             if (!obj.isSpawned(world)) {
                 break
             }
 
-            if (!GatherRolls.rollSuccess(node, level, world.randomDouble())) {
+            if (!GatherRolls.rollSuccess(node, level, world.randomDouble(), successLow, successHigh)) {
                 continue
             }
 
@@ -142,6 +150,11 @@ suspend fun gatherFromObject(
             }
 
             player.addXp(skill, node.xp)
+
+            if (node.lifetimeTicks > 0 && elapsedTicks < node.lifetimeTicks) {
+                continue
+            }
+
             depleteObject(world, obj, node)
             break
         }
@@ -161,7 +174,9 @@ object GatherRolls {
         node: ResolvedSkillNode,
         level: Int,
         roll: Double,
-    ): Boolean = roll < node.successChance(level)
+        successLow: Int = node.node.successLow,
+        successHigh: Int = node.node.successHigh,
+    ): Boolean = roll < node.successChance(level, successLow, successHigh)
 
     /**
      * Rolls every [ResolvedSkillNode.loot] entry independently. [random] must

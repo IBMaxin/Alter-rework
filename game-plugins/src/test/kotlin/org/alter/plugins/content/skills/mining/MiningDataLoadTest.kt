@@ -23,7 +23,7 @@ class MiningDataLoadTest {
         val service = SkillingService()
         service.load(Paths.get("../data/cfg/skilling"))
 
-        assertEquals(setOf("mining"), service.repository.definitionNames)
+        assertEquals(setOf("mining", "woodcutting"), service.repository.definitionNames)
         assertEquals(12, service.nodes("mining").size)
     }
 
