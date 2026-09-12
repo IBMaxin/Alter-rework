@@ -59,6 +59,34 @@
 - [ ] Add demon-specific combat animations (currently using generic `DEMON_DEATH=67`)
 - [ ] Implement demon weakness (slash attacks in OSRS)
 
+## Skilling Framework
+- [x] Add `SkillNode`/`SkillLoot` data model + OSRS success formula (`SkillNodeData.kt`) — 2026-09-12
+- [x] Add `SkillingService`/`SkillingRepository` — loads one JSON file per skill from `data/cfg/skilling/`, resolves RSCM ids, indexes by object id — 2026-09-12
+- [x] Add `gatherFromObjects(skill, option, nodes)` DSL + generic gather loop with depletion/respawn — 2026-09-12
+- [x] Add tests: `SkillNodeDataTest`, `SkillingServiceTest`, `GatherRollsTest`, `MiningDataLoadTest` (31 passing) — 2026-09-12
+- [x] Mining pilot: `data/cfg/skilling/mining.json` (12 rocks) + `MiningPlugin` — 2026-09-12
+- [x] Mining correctness: pickaxe tiers + resolver (speed/animation, weapon-slot or inventory) and depleted rock bindings — 2026-09-12
+- [x] Resolve verification data from cache: rocks only expose `Mine` (Prospect removed 2023-03-15); depleted rocks are `object.rocks_11390/11391/11392` (+ Prifddinas/Varlamore 36202/41549/41550) — 2026-09-12
+- [x] Add `object.iron_rocks_42833` ("The Node", 0 XP) as its own node; allow `xp >= 0.0` — 2026-09-12
+- [x] Tests: `PickaxeTest` added; `MiningDataLoadTest` covers depleted keys + The Node (175 total passing) — 2026-09-12
+- [ ] **NEEDS HUMAN VERIFICATION (Mining)** — each entry in `mining.json` carries a `needsHumanVerification` list:
+  - every standard ore depletes to the shared `object.rocks_11390`; per-ore and Prifddinas/Varlamore empty variants are not modelled
+  - node `actionTicks`/`animation` are placeholders; the pickaxe resolver supplies the real speed and animation
+  - dragon/3rd age/infernal (2.83) and crystal (2.75) pickaxes have a random 2-tick roll (1/6 and 1/4); only the default 3 ticks is modelled
+  - Mining Guild accelerated respawns (iron/adamantite/runite) are not modelled
+  - `object.coal_rocks` (4676) is RuneLite `MISC_DUMMY_COALROCK1`; binding needs confirmation
+  - echo/corrupted pickaxes are omitted (tier unverified) so they read as "no pickaxe"
+- [x] Extend framework: `SkillNode.lifetimeTicks` (multi-gather nodes) + `GatherAction.successMultiplier` (tool-scales success) — 2026-09-12
+- [x] Woodcutting: `data/cfg/skilling/woodcutting.json` (8 trees) + `WoodcuttingPlugin` + `Axe`/`WoodcuttingActionResolver` — 2026-09-12
+- [x] Tests: `AxeTest`, `WoodcuttingDataLoadTest` (185 total passing) — 2026-09-12
+- [ ] **NEEDS HUMAN VERIFICATION (Woodcutting)** — each entry in `woodcutting.json` carries a `needsHumanVerification` list:
+  - tree despawn timer is simplified (does not regenerate when a player stops chopping)
+  - per-variant stumps are approximated with `object.tree_stump` (except mahogany/magic)
+  - gilded/3rd age/infernal/crystal axe multipliers are estimated from the relative-chance table; bronze-dragon are from the tree success charts
+  - normal-tree respawn uses a fixed 59 ticks (OSRS is a random 36-60s)
+  - bird/clue nests, beaver pet, Forestry, Woodcutting Guild and group/invisible boosts are not modelled
+- [ ] Add fishing (needs a `gatherFromNpcs` DSL + tool requirements)
+
 ## Dev Tooling
 - [ ] Add more cache dump tools (items, objects, animations)
 - [ ] Auto-generate RSCM mappings from cache

@@ -1,0 +1,369 @@
+[
+  {
+    "key": "object.clay_rocks",
+    "variants": [
+      "object.clay_rocks_11363"
+    ],
+    "levelRequired": 1,
+    "xp": 5.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 128,
+    "successHigh": 400,
+    "respawnTicks": 2,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.clay",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Clay_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled."
+    ]
+  },
+  {
+    "key": "object.copper_rocks",
+    "variants": [
+      "object.copper_rocks_10943",
+      "object.copper_rocks_11161",
+      "object.copper_rocks_37944"
+    ],
+    "levelRequired": 1,
+    "xp": 17.5,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 100,
+    "successHigh": 350,
+    "respawnTicks": 4,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.copper_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Copper_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "Tutorial Island variants (10079, 37944) grant no experience past level 3; this is not modelled."
+    ]
+  },
+  {
+    "key": "object.tin_rocks",
+    "variants": [
+      "object.tin_rocks_11360",
+      "object.tin_rocks_11361",
+      "object.tin_rocks_37945"
+    ],
+    "levelRequired": 1,
+    "xp": 17.5,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 100,
+    "successHigh": 350,
+    "respawnTicks": 4,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.tin_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Tin_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "Tutorial Island variants (10080, 37945) grant no experience past level 3; this is not modelled."
+    ]
+  },
+  {
+    "key": "object.blurite_rocks",
+    "variants": [
+      "object.blurite_rocks_11379"
+    ],
+    "levelRequired": 10,
+    "xp": 17.5,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 90,
+    "successHigh": 350,
+    "respawnTicks": 42,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.blurite_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Blurite_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "Respawn time is 25 seconds per the wiki (42 ticks) but is not confirmed against the cache."
+    ]
+  },
+  {
+    "key": "object.iron_rocks",
+    "variants": [
+      "object.iron_rocks_11365",
+      "object.iron_rocks_36203"
+    ],
+    "levelRequired": 15,
+    "xp": 35.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 96,
+    "successHigh": 350,
+    "respawnTicks": 9,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.iron_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Iron_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawn (2.4s) is not modelled; all iron rocks use the standard 5.4s respawn.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "The Prifddinas variant (36203) uses a different empty rock and drop table; not modelled.",
+      "The Node (42833) is modelled as its own zero-xp node."
+    ]
+  },
+  {
+    "key": "object.iron_rocks_42833",
+    "variants": [],
+    "levelRequired": 15,
+    "xp": 0.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 96,
+    "successHigh": 350,
+    "respawnTicks": 9,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.iron_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Iron_rocks",
+    "needsHumanVerification": [
+      "The Node grants no Mining experience past level 3; xp is modelled as 0.",
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled."
+    ]
+  },
+  {
+    "key": "object.silver_rocks",
+    "variants": [
+      "object.silver_rocks_11369",
+      "object.silver_rocks_36205"
+    ],
+    "levelRequired": 20,
+    "xp": 40.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 25,
+    "successHigh": 200,
+    "respawnTicks": 100,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.silver_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Silver_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled."
+    ]
+  },
+  {
+    "key": "object.coal_rocks",
+    "variants": [
+      "object.coal_rocks_11366",
+      "object.coal_rocks_11367",
+      "object.coal_rocks_36204"
+    ],
+    "levelRequired": 30,
+    "xp": 50.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 16,
+    "successHigh": 100,
+    "respawnTicks": 50,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.coal",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Coal_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "The base object.coal_rocks (4676) is RuneLite MISC_DUMMY_COALROCK1; verify it should be mineable."
+    ]
+  },
+  {
+    "key": "object.gold_rocks",
+    "variants": [
+      "object.gold_rocks_11371",
+      "object.gold_rocks_36206"
+    ],
+    "levelRequired": 40,
+    "xp": 65.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 7,
+    "successHigh": 75,
+    "respawnTicks": 100,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.gold_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Gold_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "The Witchaven 'perfect' gold ore variant is not modelled."
+    ]
+  },
+  {
+    "key": "object.mithril_rocks",
+    "variants": [
+      "object.mithril_rocks_11373",
+      "object.mithril_rocks_36207"
+    ],
+    "levelRequired": 55,
+    "xp": 80.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 4,
+    "successHigh": 50,
+    "respawnTicks": 200,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.mithril_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Mithril_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawns are not modelled.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled."
+    ]
+  },
+  {
+    "key": "object.adamantite_rocks",
+    "variants": [
+      "object.adamantite_rocks_11375",
+      "object.adamantite_rocks_36208"
+    ],
+    "levelRequired": 70,
+    "xp": 95.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 2,
+    "successHigh": 25,
+    "respawnTicks": 400,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.adamantite_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Adamantite_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild accelerated respawn (120s) is not modelled; all adamantite rocks use the standard 240s respawn.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled."
+    ]
+  },
+  {
+    "key": "object.runite_rocks_11376",
+    "variants": [
+      "object.runite_rocks_11377",
+      "object.runite_rocks_36209"
+    ],
+    "levelRequired": 85,
+    "xp": 125.0,
+    "actionTicks": 4,
+    "animation": -1,
+    "successLow": 1,
+    "successHigh": 18,
+    "respawnTicks": 1200,
+    "depletedKey": "object.rocks_11390",
+    "loot": [
+      {
+        "item": "item.runite_ore",
+        "min": 1,
+        "max": 1,
+        "chance": 1.0
+      }
+    ],
+    "source": "https://oldschool.runescape.wiki/w/Runite_rocks",
+    "needsHumanVerification": [
+      "Node-level actionTicks/animation are placeholders; the pickaxe resolver supplies the real speed and animation.",
+      "Standard ore depletion uses the shared empty rock object.rocks_11390; per-ore and Prifddinas/Varlamore empty variants are not modelled.",
+      "Mining Guild / Wilderness accelerated respawn (360s) is not modelled; all runite rocks use the standard 720s respawn.",
+      "Dragon/3rd age/infernal and crystal pickaxes have a random faster roll (1/6 and 1/4); only the default 3 ticks is modelled.",
+      "Runite has no base object.runite_rocks RSCM entry; the 11376 variant is used as the primary key."
+    ]
+  }
+]
