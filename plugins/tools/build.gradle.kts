@@ -1,3 +1,15 @@
+plugins {
+    application
+}
+
+application {
+    mainClass.set("dev.openrune.cache.tools.DumpSlayerCategoriesKt")
+}
+
+tasks.named<JavaExec>("run") {
+    workingDir = rootProject.projectDir
+}
+
 dependencies {
     implementation(project(":plugins:filestore"))
     implementation("io.netty:netty-buffer:4.1.107.Final")
