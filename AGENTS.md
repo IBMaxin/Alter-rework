@@ -16,6 +16,8 @@ Alter-rework is an OSRS-style RuneScape private server, forked from RSMod, writt
 
 **Gradlew gotcha**: `gradlew.bat` exists (Windows). There is no `gradlew` shell script (Unix). On Windows, use `gradlew.bat`. If Gradle 8.11 is installed globally, you can use `gradle build` directly.
 
+**Version catalog quirk**: `settings.gradle.kts` loads the catalog from `../gradle/libs.versions.toml` (outside the repo root), while a copy also exists at `gradle/libs.versions.toml` inside the repo. Do not "fix" the path without checking with a human.
+
 ## Build & Verification
 
 ```bash
@@ -28,11 +30,22 @@ gradle build
 # Run tests
 gradlew.bat test
 
-# Full install (creates config, runs RSA + map decryption)
-gradlew.bat install
+# Full install (creates config) — task lives in :game-server, not root
+gradlew.bat :game-server:install
+
+# Install sub-steps (RSA keygen, map decryption)
+gradlew.bat :game-server:runRsaService
+gradlew.bat :game-server:decryptMap
+
+# Run the server (main class: org.alter.game.Launcher)
+gradlew.bat :game-server:run
 ```
 
-**"Done" means**: `gradlew.bat build` completes with BUILD SUCCESSFUL and no compilation errors. There is no active CI — local verification is mandatory before push.
+http-api frontend (Vue.js, in `http-api/`): `npm install`, then `npm run serve` (dev), `npm run build`, `npm run lint`.
+
+Docker: a `Dockerfile` and `docker-compose.yml` exist at the repo root.
+
+**"Done" means**: `gradlew.bat build` completes with BUILD SUCCESSFUL and no compilation errors. CI exists (`.github/workflows/build.yml` builds on push to main/dev and PRs; `qodana_code_quality.yml` runs Qodana), but local verification is still mandatory before push.
 
 ## Repository Map
 
@@ -44,7 +57,8 @@ gradlew.bat install
 | `game-plugins/src/main/kotlin/org/alter/plugins/content/` | Content root — skills/, npcs/, combat/, commands/, mechanics/, items/, objects/, magic/, interfaces/, areas/, weapons/ |
 | `plugins/` | Dev tooling sub-modules: `filestore/`, `rscm/`, `tools/` |
 | `util/` | Utility classes (`gg.rsmod.util.*`), planned to merge into game-server |
-| `http-api/` | Vue.js frontend (not a Gradle module) |
+| `http-api/` | Vue.js frontend (not a Gradle module) — `npm run serve`/`build`/`lint` |
+| `Dockerfile`, `docker-compose.yml` | Container deployment |
 | `data/cfg/` | Game data: thieving JSON, RSCM name maps, spawns, item overrides |
 | `data/saves/` | Player save files |
 | `data/cache/` | OSRS binary cache — DO NOT touch |
@@ -58,7 +72,7 @@ gradlew.bat install
 - **Data classes**: Name `*Data.kt` or `*Entry.kt`, load from JSON in `data/cfg/`
 - **String IDs**: Use RSCM format — `"object.veg_stall"`, `"npc.man_3106"`, `"item.potato"`
 - **Standard imports**: `org.alter.api.*`, `org.alter.api.cfg.*`, `org.alter.api.dsl.*`, `org.alter.api.ext.*`, `org.alter.game.*`, `org.alter.game.model.*`
-- **Formatting**: ktlint 12.1.0 enforced, PascalCase classes, camelCase functions, UPPER_SNAKE_CASE constants
+- **Formatting**: ktlint 12.1.0 is declared in `gradle/libs.versions.toml` but the Gradle plugin is NOT applied anywhere — formatting is convention-only, no `ktlintCheck` task exists. PascalCase classes, camelCase functions, UPPER_SNAKE_CASE constants
 - **Registration pattern**: In `init {}` block, call `loadService(...)`, `onWorldInit { ... }` to bind interactions at world init time
 
 ## Constraints & Pitfalls
