@@ -65,12 +65,17 @@
 - [x] Add `gatherFromObjects(skill, option, nodes)` DSL + generic gather loop with depletion/respawn — 2026-09-12
 - [x] Add tests: `SkillNodeDataTest`, `SkillingServiceTest`, `GatherRollsTest`, `MiningDataLoadTest` (31 passing) — 2026-09-12
 - [x] Mining pilot: `data/cfg/skilling/mining.json` (11 rocks) + `MiningPlugin` — 2026-09-12
+- [x] Mining correctness: pickaxe tiers + resolver (speed/animation, weapon-slot or inventory) and depleted rock bindings — 2026-09-12
+- [x] Resolve verification data from cache: rocks only expose `Mine` (Prospect removed 2023-03-15); depleted rocks are `object.rocks_11390/11391/11392` (+ Prifddinas/Varlamore 36202/41549/41550) — 2026-09-12
+- [x] Add `object.iron_rocks_42833` ("The Node", 0 XP) as its own node; allow `xp >= 0.0` — 2026-09-12
+- [x] Tests: `PickaxeTest` added; `MiningDataLoadTest` covers depleted keys + The Node (175 total passing) — 2026-09-12
 - [ ] **NEEDS HUMAN VERIFICATION (Mining)** — each entry in `mining.json` carries a `needsHumanVerification` list:
-  - depleted rock object ids are unverified (`depletedKey: null`; rock is removed and respawned instead)
-  - `actionTicks` is fixed at 4 for every rock; OSRS roll speed varies by pickaxe tier (8 bronze .. ~2.75 crystal) and is not implemented
-  - `animation` is fixed at the bronze pickaxe swing (625); per-pickaxe animation is not implemented
+  - every standard ore depletes to the shared `object.rocks_11390`; per-ore and Prifddinas/Varlamore empty variants are not modelled
+  - node `actionTicks`/`animation` are placeholders; the pickaxe resolver supplies the real speed and animation
+  - dragon/3rd age/infernal (2.83) and crystal (2.75) pickaxes have a random 2-tick roll (1/6 and 1/4); only the default 3 ticks is modelled
   - Mining Guild accelerated respawns (iron/adamantite/runite) are not modelled
-  - `object.iron_rocks_42833` ("The Node", 0 XP past level 3) is intentionally excluded; `object.coal_rocks` (4676) binding needs confirmation
+  - `object.coal_rocks` (4676) is RuneLite `MISC_DUMMY_COALROCK1`; binding needs confirmation
+  - echo/corrupted pickaxes are omitted (tier unverified) so they read as "no pickaxe"
 - [ ] Add remaining gathering skills (woodcutting, fishing, etc.) as JSON + plugin using the same framework
 
 ## Dev Tooling

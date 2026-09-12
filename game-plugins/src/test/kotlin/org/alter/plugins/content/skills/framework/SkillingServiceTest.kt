@@ -154,7 +154,7 @@ class SkillingServiceTest {
 
     @Test
     fun `re-validates nodes deserialised by gson`() {
-        val invalid = nodeJson(xp = 0.0)
+        val invalid = nodeJson(xp = -1.0)
 
         assertFailsWith<IllegalArgumentException> { newService("mining" to invalid) }
     }

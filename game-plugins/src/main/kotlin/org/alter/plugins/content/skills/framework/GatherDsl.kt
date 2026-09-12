@@ -12,17 +12,45 @@ import org.alter.game.model.queue.QueueTask
 import org.alter.game.plugin.KotlinPlugin
 
 /**
+ * The per-attempt parameters used by [gatherFromObject].
+ *
+ * @param actionTicks cycles between two gather rolls.
+ * @param animation animation played while gathering; negative disables it.
+ */
+data class GatherAction(
+    val actionTicks: Int,
+    val animation: Int,
+)
+
+/**
+ * Resolves the [GatherAction] for a player and node, or `null` when the player
+ * cannot gather (for example, no usable tool). Implementations returning `null`
+ * are responsible for sending any player feedback.
+ */
+fun interface GatherActionResolver {
+    fun resolve(
+        player: Player,
+        node: ResolvedSkillNode,
+    ): GatherAction?
+}
+
+/**
  * Binds every object id of [nodes] to a gather interaction on [option].
  *
  * Mirrors the thieving pattern: a content plugin loads its nodes through
  * [SkillingService] and passes them here inside `onWorldInit`. Only object
  * variants that actually expose [option] in the cache are bound, so a node's
  * alternate ids never fail the option lookup at boot.
+ *
+ * [actionResolver] lets a skill override the node's `actionTicks`/`animation`
+ * per attempt (mining uses it to apply the equipped pickaxe's speed and
+ * animation); by default the node's own values are used.
  */
 fun KotlinPlugin.gatherFromObjects(
     skill: Int,
     option: String,
     nodes: Iterable<ResolvedSkillNode>,
+    actionResolver: GatherActionResolver = DefaultGatherActionResolver,
 ) {
     nodes.forEach { node ->
         node.objectIds.forEach { objectId ->
@@ -32,19 +60,28 @@ fun KotlinPlugin.gatherFromObjects(
                 .forEach { action ->
                     onObjOption(obj = objectId, option = action) {
                         val obj = player.getInteractingGameObj()
-                        player.queue { gatherFromObject(this, player, obj, skill, node) }
+                        player.queue { gatherFromObject(this, player, obj, skill, node, actionResolver) }
                     }
                 }
         }
     }
 }
 
+/** Uses the node's own `actionTicks` and `animation`. */
+object DefaultGatherActionResolver : GatherActionResolver {
+    override fun resolve(
+        player: Player,
+        node: ResolvedSkillNode,
+    ): GatherAction = GatherAction(node.actionTicks, node.animation)
+}
+
 /**
  * The shared gather loop used by [gatherFromObjects].
  *
- * Repeats a single `actionTicks` roll until the node is depleted or the player
- * stops interacting. A successful roll awards every satisfied [SkillLoot]
- * entry, grants xp and depletes the object; a failed roll simply tries again.
+ * Repeats a single roll every [GatherAction.actionTicks] until the node is
+ * depleted or the player stops interacting. A successful roll awards every
+ * satisfied [SkillLoot] entry, grants xp and depletes the object; a failed roll
+ * simply tries again.
  *
  * Clicking elsewhere or walking interrupts the queue through the engine, so no
  * explicit "player moved" check is required.
@@ -55,6 +92,7 @@ suspend fun gatherFromObject(
     obj: GameObject,
     skill: Int,
     node: ResolvedSkillNode,
+    actionResolver: GatherActionResolver = DefaultGatherActionResolver,
 ) {
     val world = player.world
     val level = player.getSkills().getCurrentLevel(skill)
@@ -69,6 +107,8 @@ suspend fun gatherFromObject(
         return
     }
 
+    val action = actionResolver.resolve(player, node) ?: return
+
     if (!canReceiveLoot(player, node)) {
         player.message("Your inventory is too full to hold any more.")
         return
@@ -77,12 +117,12 @@ suspend fun gatherFromObject(
     player.faceTile(obj.tile)
     player.lock()
     try {
-        if (node.animation >= 0) {
-            player.animate(node.animation)
+        if (action.animation >= 0) {
+            player.animate(action.animation)
         }
 
         while (obj.isSpawned(world)) {
-            task.wait(node.actionTicks)
+            task.wait(action.actionTicks)
 
             if (!obj.isSpawned(world)) {
                 break

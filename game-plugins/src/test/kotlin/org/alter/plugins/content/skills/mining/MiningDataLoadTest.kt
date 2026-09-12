@@ -24,7 +24,7 @@ class MiningDataLoadTest {
         service.load(Paths.get("../data/cfg/skilling"))
 
         assertEquals(setOf("mining"), service.repository.definitionNames)
-        assertEquals(11, service.nodes("mining").size)
+        assertEquals(12, service.nodes("mining").size)
     }
 
     @Test
@@ -39,6 +39,7 @@ class MiningDataLoadTest {
             "object.tin_rocks_37945",
             "object.blurite_rocks",
             "object.iron_rocks_36203",
+            "object.iron_rocks_42833",
             "object.silver_rocks_36205",
             "object.coal_rocks_36204",
             "object.gold_rocks_36206",
@@ -67,6 +68,25 @@ class MiningDataLoadTest {
         assertEquals(125.0, runite.xp)
         assertEquals(1200, runite.respawnTicks)
         assertEquals(getRSCM("item.runite_ore"), runite.loot.single().itemId)
+
+        val theNode = service.nodes("mining").single { it.node.key == "object.iron_rocks_42833" }
+        assertEquals(15, theNode.levelRequired)
+        assertEquals(0.0, theNode.xp)
+        assertEquals(getRSCM("item.iron_ore"), theNode.loot.single().itemId)
+    }
+
+    @Test
+    fun `every node references a depleted object`() {
+        val service = SkillingService()
+        service.load(Paths.get("../data/cfg/skilling"))
+
+        service.nodes("mining").forEach { node ->
+            assertEquals(
+                getRSCM("object.rocks_11390"),
+                node.depletedObjectId,
+                "${node.node.key} does not resolve its depleted rock",
+            )
+        }
     }
 
     @Test

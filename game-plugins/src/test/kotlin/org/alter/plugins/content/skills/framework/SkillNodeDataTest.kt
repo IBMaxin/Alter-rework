@@ -51,8 +51,8 @@ class SkillNodeDataTest {
     }
 
     @Test
-    fun `node rejects non positive xp`() {
-        assertFailsWith<IllegalArgumentException> { validNode(xp = 0.0) }
+    fun `node allows zero xp but rejects negative xp`() {
+        assertEquals(0.0, validNode(xp = 0.0).xp)
         assertFailsWith<IllegalArgumentException> { validNode(xp = -1.0) }
     }
 

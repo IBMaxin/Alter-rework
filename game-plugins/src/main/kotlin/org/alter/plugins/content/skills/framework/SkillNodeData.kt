@@ -73,7 +73,7 @@ data class SkillNode(
         require(levelRequired in 1..MAX_SKILL_LEVEL) {
             "Skill node level requirement must be between 1 and $MAX_SKILL_LEVEL, but was $levelRequired."
         }
-        require(xp > 0.0) { "Skill node xp must be positive, but was $xp." }
+        require(xp >= 0.0) { "Skill node xp must not be negative, but was $xp." }
         require(actionTicks >= 1) { "Skill node action ticks must be at least 1, but was $actionTicks." }
         require(successLow >= 0) { "Skill node low success parameter must not be negative, but was $successLow." }
         require(successHigh >= 0) { "Skill node high success parameter must not be negative, but was $successHigh." }
