@@ -81,6 +81,26 @@ class LadderPlugin(
             }
         }
 
+        /**Slayer Tower staircases.*/
+        onObjOption(obj = "object.2114", option = "climb-up") {
+            climbupstairs(player)
+        }
+        onObjOption(obj = "object.2119", option = "climb-up") {
+            climbupstairs(player)
+        }
+        onObjOption(obj = "object.2121", option = "climb-up") {
+            climbupstairs(player)
+        }
+        onObjOption(obj = "object.2118", option = "climb-down") {
+            climbdownstairs(player)
+        }
+        onObjOption(obj = "object.2120", option = "climb-down") {
+            climbdownstairs(player)
+        }
+        onObjOption(obj = "object.2122", option = "climb-down") {
+            climbdownstairs(player)
+        }
+
         /**Trapdoors.*/
 
         onObjOption("object.trapdoor_14880", option = "climb-down") {
