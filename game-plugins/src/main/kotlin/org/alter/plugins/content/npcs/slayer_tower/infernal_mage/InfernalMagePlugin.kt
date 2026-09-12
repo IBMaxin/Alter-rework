@@ -65,51 +65,43 @@ class InfernalMagePlugin(
                 levelRequirement = 45
                 xp = 60.0
             }
-        }
 
-        NPC_IDS.forEach { npcId ->
-            onNpcDeath(npcId) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                world.spawn(GroundItem(bonesId, 1, tile, killer))
-
-                if (world.random(1..7) == 1) {
-                    world.spawn(GroundItem(deathRuneId, 7, tile, killer))
+            drops {
+                always {
+                    add(item = bonesId, amount = 1)
                 }
 
-                val staffRoll = world.random(1..128)
-                when {
-                    staffRoll == 1 -> world.spawn(GroundItem(staffOfFireId, 1, tile, killer))
-                    staffRoll <= 9 -> world.spawn(GroundItem(staffId, 1, tile, killer))
+                main(weight = 7) {
+                    add(item = deathRuneId, amount = 7, weight = 1)
                 }
 
-                val elemRoll = world.random(1..128)
-                when {
-                    elemRoll <= 5 -> world.spawn(GroundItem(earthRuneId, 36, tile, killer))
-                    elemRoll <= 10 -> world.spawn(GroundItem(earthRuneId, 10, tile, killer))
-                    elemRoll <= 15 -> world.spawn(GroundItem(fireRuneId, 10, tile, killer))
-                    elemRoll <= 20 -> world.spawn(GroundItem(airRuneId, 10, tile, killer))
-                    elemRoll <= 25 -> world.spawn(GroundItem(waterRuneId, 10, tile, killer))
-                    elemRoll <= 30 -> world.spawn(GroundItem(airRuneId, 18, tile, killer))
-                    elemRoll <= 35 -> world.spawn(GroundItem(waterRuneId, 18, tile, killer))
-                    elemRoll <= 40 -> world.spawn(GroundItem(earthRuneId, 18, tile, killer))
-                    elemRoll <= 45 -> world.spawn(GroundItem(fireRuneId, 18, tile, killer))
+                main(weight = 128) {
+                    add(item = staffOfFireId, amount = 1, weight = 1)
+                    add(item = staffId, amount = 1, weight = 8)
                 }
 
-                val cataRoll = world.random(1..128)
-                when {
-                    cataRoll <= 18 -> world.spawn(GroundItem(mindRuneId, 18, tile, killer))
-                    cataRoll <= 36 -> world.spawn(GroundItem(bodyRuneId, 18, tile, killer))
-                    cataRoll <= 40 -> world.spawn(GroundItem(bloodRuneId, 4, tile, killer))
+                main(weight = 128) {
+                    add(item = earthRuneId, amount = 36, weight = 5)
+                    add(item = earthRuneId, amount = 10, weight = 5)
+                    add(item = fireRuneId, amount = 10, weight = 5)
+                    add(item = airRuneId, amount = 10, weight = 5)
+                    add(item = waterRuneId, amount = 10, weight = 5)
+                    add(item = airRuneId, amount = 18, weight = 5)
+                    add(item = waterRuneId, amount = 18, weight = 5)
+                    add(item = earthRuneId, amount = 18, weight = 5)
+                    add(item = fireRuneId, amount = 18, weight = 5)
                 }
 
-                val preRoll = world.random(1..1000)
-                when (preRoll) {
-                    in 1..2 -> world.spawn(GroundItem(mysticBootsDarkId, 1, tile, killer))
-                    in 3..4 -> world.spawn(GroundItem(mysticHatDarkId, 1, tile, killer))
-                    in 5..6 -> world.spawn(GroundItem(lavaBattlestaffId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = mindRuneId, amount = 18, weight = 18)
+                    add(item = bodyRuneId, amount = 18, weight = 18)
+                    add(item = bloodRuneId, amount = 4, weight = 4)
+                }
+
+                main(weight = 1000) {
+                    add(item = mysticBootsDarkId, amount = 1, weight = 2)
+                    add(item = mysticHatDarkId, amount = 1, weight = 2)
+                    add(item = lavaBattlestaffId, amount = 1, weight = 2)
                 }
             }
         }

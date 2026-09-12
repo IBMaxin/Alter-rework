@@ -60,36 +60,30 @@ class CrawlingHandPlugin(
                 levelRequirement = 5
                 xp = 12.0
             }
-        }
 
-        NPC_IDS.forEach { npcId ->
-            onNpcDeath(npcId) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                world.spawn(GroundItem(bonesId, 1, tile, killer))
-
-                val commonRoll = world.random(1..128)
-                when {
-                    commonRoll <= 21 -> world.spawn(GroundItem(leatherGlovesId, 1, tile, killer))
-                    commonRoll <= 42 -> world.spawn(GroundItem(coinsId, 8, tile, killer))
-                    commonRoll <= 63 -> world.spawn(GroundItem(coinsId, 5, tile, killer))
+            drops {
+                always {
+                    add(item = bonesId, amount = 1)
                 }
 
-                val uncommonRoll = world.random(1..128)
-                when (uncommonRoll) {
-                    1 -> world.spawn(GroundItem(goldRingId, 1, tile, killer))
-                    2 -> world.spawn(GroundItem(tealGlovesId, 1, tile, killer))
-                    3 -> world.spawn(GroundItem(purpleGlovesId, 1, tile, killer))
-                    4 -> world.spawn(GroundItem(redGlovesId, 1, tile, killer))
-                    5 -> world.spawn(GroundItem(yellowGlovesId, 1, tile, killer))
-                    6 -> world.spawn(GroundItem(sapphireRingId, 1, tile, killer))
-                    7 -> world.spawn(GroundItem(emeraldRingId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = leatherGlovesId, amount = 1, weight = 21)
+                    add(item = coinsId, amount = 8, weight = 21)
+                    add(item = coinsId, amount = 5, weight = 21)
                 }
 
-                if (world.random(1..128) <= 2) {
-                    world.spawn(GroundItem(uncutSapphireId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = goldRingId, amount = 1, weight = 1)
+                    add(item = tealGlovesId, amount = 1, weight = 1)
+                    add(item = purpleGlovesId, amount = 1, weight = 1)
+                    add(item = redGlovesId, amount = 1, weight = 1)
+                    add(item = yellowGlovesId, amount = 1, weight = 1)
+                    add(item = sapphireRingId, amount = 1, weight = 1)
+                    add(item = emeraldRingId, amount = 1, weight = 1)
+                }
+
+                main(weight = 128) {
+                    add(item = uncutSapphireId, amount = 1, weight = 2)
                 }
             }
         }

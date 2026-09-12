@@ -27,6 +27,41 @@ class AberrantSpectrePlugin(
 ) : KotlinPlugin(r, world, server) {
 
     init {
+        val herbTable = WeightedTableBuilder().apply {
+            main(weight = 26) {
+                add(item = guamLeafId, min = 1, max = 3, weight = 2)
+                add(item = marrentillId, min = 1, max = 3, weight = 2)
+                add(item = tarrominId, min = 1, max = 3, weight = 2)
+                add(item = harralanderId, min = 1, max = 3, weight = 2)
+                add(item = ranarrWeedId, min = 1, max = 3, weight = 2)
+                add(item = iritLeafId, min = 1, max = 3, weight = 2)
+                add(item = avantoeId, min = 1, max = 3, weight = 2)
+                add(item = kwuarmId, min = 1, max = 3, weight = 2)
+                add(item = cadantineId, min = 1, max = 3, weight = 2)
+                add(item = lantadymeId, min = 1, max = 3, weight = 2)
+                add(item = dwarfWeedId, min = 1, max = 3, weight = 6)
+            }
+        }.LootTables.single()
+
+        val spectreSeedTable = WeightedTableBuilder().apply {
+            main(weight = 14) {
+                add(item = toadflaxSeedId, amount = 1, weight = 1)
+                add(item = iritSeedId, amount = 1, weight = 1)
+                add(item = belladonnaSeedId, amount = 1, weight = 1)
+                add(item = poisonIvySeedId, amount = 1, weight = 1)
+                add(item = avantoeSeedId, amount = 1, weight = 1)
+                add(item = cactusSeedId, amount = 1, weight = 1)
+                add(item = potatoCactusSeedId, amount = 1, weight = 1)
+                add(item = kwuarmSeedId, amount = 1, weight = 1)
+                add(item = snapdragonSeedId, amount = 1, weight = 1)
+                add(item = cadantineSeedId, amount = 1, weight = 1)
+                add(item = lantadymeSeedId, amount = 1, weight = 1)
+                add(item = snapeGrassSeedId, amount = 1, weight = 1)
+                add(item = dwarfWeedSeedId, amount = 1, weight = 1)
+                add(item = torstolSeedId, amount = 1, weight = 1)
+            }
+        }.LootTables.single()
+
         setCombatDef(*NPC_IDS.toTypedArray()) {
             configs {
                 attackSpeed = 4
@@ -65,71 +100,34 @@ class AberrantSpectrePlugin(
                 levelRequirement = 60
                 xp = 90.0
             }
-        }
 
-        NPC_IDS.forEach { npcId ->
-            onNpcDeath(npcId) {
-                val npc = ctx as? Npc ?: return@onNpcDeath
-                val killer = npc.attr[KILLER_ATTR]?.get() as? Player ?: return@onNpcDeath
-                val tile = npc.tile
-
-                if (world.random(1..128) <= 78) {
-                    val herbCount = world.random(1..3)
-                    val herbId = when (world.random(1..26)) {
-                        in 1..2 -> guamLeafId
-                        in 3..4 -> marrentillId
-                        in 5..6 -> tarrominId
-                        in 7..8 -> harralanderId
-                        in 9..10 -> ranarrWeedId
-                        in 11..12 -> iritLeafId
-                        in 13..14 -> avantoeId
-                        in 15..16 -> kwuarmId
-                        in 17..18 -> cadantineId
-                        in 19..20 -> lantadymeId
-                        else -> dwarfWeedId
-                    }
-                    world.spawn(GroundItem(herbId, herbCount, tile, killer))
+            drops {
+                main(weight = 128) {
+                    add(item = herbTable, amount = 1, weight = 78)
                 }
 
-                if (world.random(1..128) <= 19) {
-                    val seedId = when (world.random(1..14)) {
-                        1 -> toadflaxSeedId
-                        2 -> iritSeedId
-                        3 -> belladonnaSeedId
-                        4 -> poisonIvySeedId
-                        5 -> avantoeSeedId
-                        6 -> cactusSeedId
-                        7 -> potatoCactusSeedId
-                        8 -> kwuarmSeedId
-                        9 -> snapdragonSeedId
-                        10 -> cadantineSeedId
-                        11 -> lantadymeSeedId
-                        12 -> snapeGrassSeedId
-                        13 -> dwarfWeedSeedId
-                        else -> torstolSeedId
-                    }
-                    world.spawn(GroundItem(seedId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = spectreSeedTable, amount = 1, weight = 19)
                 }
 
-                val weaponRoll = world.random(1..128)
-                when {
-                    weaponRoll <= 3 -> world.spawn(GroundItem(steelAxeId, 1, tile, killer))
-                    weaponRoll <= 4 -> world.spawn(GroundItem(mithrilKiteshieldId, 1, tile, killer))
-                    weaponRoll <= 5 -> world.spawn(GroundItem(lavaBattlestaffId, 1, tile, killer))
-                    weaponRoll <= 6 -> world.spawn(GroundItem(adamantPlatelegsId, 1, tile, killer))
-                    weaponRoll <= 7 -> world.spawn(GroundItem(runeFullHelmId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = steelAxeId, amount = 1, weight = 3)
+                    add(item = mithrilKiteshieldId, amount = 1, weight = 1)
+                    add(item = lavaBattlestaffId, amount = 1, weight = 1)
+                    add(item = adamantPlatelegsId, amount = 1, weight = 1)
+                    add(item = runeFullHelmId, amount = 1, weight = 1)
                 }
 
-                if (world.random(1..512) == 1) {
-                    world.spawn(GroundItem(mysticRobeBottomDarkId, 1, tile, killer))
+                main(weight = 512) {
+                    add(item = mysticRobeBottomDarkId, amount = 1, weight = 1)
                 }
 
-                if (world.random(1..128) == 1) {
-                    world.spawn(GroundItem(coinsId, 460, tile, killer))
+                main(weight = 128) {
+                    add(item = coinsId, amount = 460, weight = 1)
                 }
 
-                if (world.random(1..128) <= 5) {
-                    world.spawn(GroundItem(uncutSapphireId, 1, tile, killer))
+                main(weight = 128) {
+                    add(item = uncutSapphireId, amount = 1, weight = 5)
                 }
             }
         }

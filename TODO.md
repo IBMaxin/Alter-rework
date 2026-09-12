@@ -46,8 +46,8 @@
 - [x] **Add drops to CowPlugin** — moved to `drops { always { bones, cowhide, raw beef } }` in `setCombatDef`; manual `onNpcDeath` spawn block deleted to avoid double drops — 2026-09-12
 - [x] **Migrate BlackDemon drops to DSL** — `BlackDemonPlugin` now uses `drops { always { … } main { … } }` with nested per-tier tables; manual `onNpcDeath`/`Reward` block deleted — 2026-09-12
 - [x] **Uncomment KBD drops** — converted the commented block to RSCM string IDs and the current `drops {}` DSL in `KbdConfigsPlugin.kt` — 2026-09-12
-- [ ] **Add drops to Barrows brothers** — all 6 (Verac, Guthan, Torag, Dharok, Karil, Ahrim) have `setCombatDef` but no drops
-- [ ] **Migrate Slayer Tower drops to DSL** — the 8 monsters spawn loot manually in `onNpcDeath`; convert each to `drops {}` once the engine supports their table shapes
+- [x] **Barrows brothers have no individual drops (N/A)** — verified against the OSRS wiki: brothers drop nothing on death except a tertiary Brimstone key (Konar task only). All Barrows equipment comes from the Barrows chest reward system, which is not implemented. 2026-09-12
+- [x] **Migrate Slayer Tower drops to DSL** — all 8 monsters converted from manual `onNpcDeath` loot blocks to `drops {}`; each independent roll group is preserved as its own MAIN table, with nested weighted tables for aberrant spectre herbs/seeds and nechryael seeds — 2026-09-12
 - [ ] **Add rare drop table** — global table referenced by weight from individual NPC tables
 - [ ] **Add herblore secondaries drop table**
 - [ ] **Create `data/cfg/drops/` directory** — optional: move drop tables to JSON for a data-driven approach (like the thieving system)
