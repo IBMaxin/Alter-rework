@@ -47,7 +47,7 @@ data class LootTable(
                             i += it.weight
                         }
                     }
-                    check(tableWeight >= i) { "Why be so retarded?" }
+                    check(tableWeight >= i) { "Table weight must be >= sum of item weights." }
                 }
             }
         }
