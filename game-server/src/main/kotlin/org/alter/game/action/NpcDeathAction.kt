@@ -106,8 +106,8 @@ object NpcDeathAction {
      */
     internal fun resolveLootContext(
         killer: Pawn?,
-        lootTables: MutableSet<LootTable>?,
-    ): Pair<Player, MutableSet<LootTable>>? {
+        lootTables: List<LootTable>?,
+    ): Pair<Player, List<LootTable>>? {
         val killerPlayer = killer as? Player ?: return null
         if (lootTables.isNullOrEmpty()) {
             return null

@@ -1,5 +1,6 @@
 package org.alter.plugins.content.loot
 
+import org.alter.api.dsl.WeightedTableBuilder
 import org.alter.game.DevContext
 import org.alter.game.GameContext
 import org.alter.game.model.PlayerUID
@@ -90,7 +91,7 @@ class LootTableBuilderTest {
         val loot = Loot(item = 995, min = 1, max = 1)
         val table = LootTable(TableType.ALWAYS, tableWeight = 0, drops = mutableSetOf(loot))
 
-        val drops = roll(player, setOf(table), tile)
+        val drops = roll(player, listOf(table), tile)
 
         assertEquals(1, drops.size)
         val drop = drops.single()
@@ -258,5 +259,42 @@ class LootTableBuilderTest {
 
         assertTrue(error.message!!.contains("configured total weight 3"))
         assertTrue(error.message!!.contains("accumulated item weight 4"))
+    }
+
+    @Test
+    fun `roll resolves every table of the same type independently`() {
+        val player = newPlayer()
+        val tile = Tile(3200, 3200, 0)
+        val first = LootTable(TableType.MAIN, tableWeight = 1, drops = mutableSetOf(Loot(item = 1, min = 1, max = 1, weight = 1)))
+        val second = LootTable(TableType.MAIN, tableWeight = 1, drops = mutableSetOf(Loot(item = 2, min = 1, max = 1, weight = 1)))
+
+        val drops = roll(player, listOf(first, second), tile)
+
+        assertEquals(setOf(1, 2), drops.map { it.item }.toSet())
+    }
+
+    @Test
+    fun `pre roll drops do not suppress the main table`() {
+        val player = newPlayer()
+        val tile = Tile(3200, 3200, 0)
+        val preRoll = LootTable(TableType.PRE_ROLL, tableWeight = 0, drops = mutableSetOf(Loot(item = 10, min = 1, max = 1, weight = 128)))
+        val main = LootTable(TableType.MAIN, tableWeight = 1, drops = mutableSetOf(Loot(item = 20, min = 1, max = 1, weight = 1)))
+
+        val drops = roll(player, listOf(preRoll, main), tile)
+
+        assertEquals(setOf(10, 20), drops.map { it.item }.toSet())
+    }
+
+    @Test
+    fun `each drops block produces a distinct table`() {
+        val builder = WeightedTableBuilder()
+        builder.always { add(item = 1, amount = 1) }
+        builder.always { add(item = 2, amount = 1) }
+        builder.main(weight = 1) { add(item = 3, amount = 1, weight = 1) }
+        builder.main(weight = 1) { add(item = 4, amount = 1, weight = 1) }
+
+        assertEquals(4, builder.LootTables.size)
+        assertEquals(2, builder.LootTables.count { it.tableType == TableType.ALWAYS })
+        assertEquals(2, builder.LootTables.count { it.tableType == TableType.MAIN })
     }
 }

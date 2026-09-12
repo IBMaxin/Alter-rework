@@ -298,7 +298,6 @@ fun Player.closeInterface(interfaceId: Int) {
     }
     val hash = interfaces.close(interfaceId)
     if (hash != -1) {
-        // this is retarded
         val parent = hash shr 16
         val child = hash and 0xFFFF
         write(IfCloseSub(interfaceId = parent, componentId = child))

@@ -143,7 +143,7 @@ fun Loot.handleToItem(killer: Player, dropTile: Tile): List<GroundItem> {
                 items.add(GroundItem(item, amount = randomStep(min, max, steepness), tile = dropTile, owner = killer))
             }
             is LootTable -> {
-                items.addAll(roll(killer, setOf(item), dropTile))
+                items.addAll(roll(killer, listOf(item), dropTile))
             }
             is KFunction<*> -> {
                 try {
@@ -215,34 +215,37 @@ fun announceRareDrop(killer: Player, loot: Loot) {
     loot.rareDropMessage(killer.world.gameContext.rareDropAnnouncements)?.let(killer::writeMessage)
 }
 
-fun roll(killer: Player, lootTables: Set<LootTable>?, dropTile: Tile): Set<GroundItem> {
-    val dropSet = mutableSetOf<GroundItem?>()
-    val tables = TableType.values().associateWith { tableType ->
-        lootTables?.filter { it.tableType == tableType }
+/**
+ * Rolls loot for [killer] against every table in [lootTables].
+ *
+ * Every table of a given [TableType] is resolved independently, so an NPC may
+ * declare more than one MAIN (or PRE_ROLL/TERTIARY) slot:
+ *
+ * - ALWAYS: every entry of every ALWAYS table is a guaranteed drop.
+ * - TERTIARY: every entry rolls independently against its own weight.
+ * - PRE_ROLL: each PRE_ROLL table rolls independently and does **not** suppress
+ *   the MAIN table.
+ * - MAIN: each MAIN table performs its own weighted selection (which may
+ *   resolve to "nothing" via the table's unallocated remainder).
+ */
+fun roll(killer: Player, lootTables: List<LootTable>?, dropTile: Tile): Set<GroundItem> {
+    val dropSet = mutableSetOf<GroundItem>()
+    val tables = lootTables.orEmpty()
+
+    tables.filter { it.tableType == TableType.ALWAYS }.forEach { table ->
+        table.drops.forEach { dropSet.addAll(it.handleToItem(killer, dropTile)) }
     }
-    tables[TableType.ALWAYS]?.forEach {
-        it.drops.forEach {
-            it.handleToItem(killer, dropTile).forEach {
-                dropSet.add(it)
-            }
-        }
+    tables.filter { it.tableType == TableType.TERTIARY }.forEach { table ->
+        table.tertiaryRoll().forEach { dropSet.addAll(it.handleToItem(killer, dropTile)) }
     }
-    tables[TableType.TERTIARY]?.firstOrNull()?.tertiaryRoll()?.let {
-        it.forEach {
-            it.handleToItem(killer, dropTile).forEach {
-                dropSet.add(it)
-            }
-        }
+    // Pre-rolls are independent of the main table: a successful pre-roll no
+    // longer suppresses the MAIN drop.
+    tables.filter { it.tableType == TableType.PRE_ROLL }.forEach { table ->
+        table.preRoll()?.let { dropSet.addAll(it.handleToItem(killer, dropTile)) }
     }
-    tables[TableType.PRE_ROLL]?.firstOrNull()?.preRoll()?.let {
-        it.handleToItem(killer, dropTile).forEach {
-            dropSet.add(it)
-        }
-    } ?: tables[TableType.MAIN]?.firstOrNull()?.mainRoll()?.let {
-        it.handleToItem(killer, dropTile).forEach {
-            dropSet.add(it)
-        }
+    tables.filter { it.tableType == TableType.MAIN }.forEach { table ->
+        table.mainRoll()?.let { dropSet.addAll(it.handleToItem(killer, dropTile)) }
     }
-    return dropSet.filterNotNull().toSet()
+    return dropSet
 }
 

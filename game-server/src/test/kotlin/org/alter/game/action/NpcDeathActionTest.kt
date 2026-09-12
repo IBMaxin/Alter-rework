@@ -47,8 +47,8 @@ class NpcDeathActionTest {
 
     private fun newPlayer(world: World): Player = Player(world).apply { uid = PlayerUID("death-test-player") }
 
-    private fun populatedTables(): MutableSet<LootTable> =
-        mutableSetOf(
+    private fun populatedTables(): List<LootTable> =
+        listOf(
             LootTable(
                 TableType.MAIN,
                 tableWeight = 1,
@@ -68,7 +68,7 @@ class NpcDeathActionTest {
 
     @Test
     fun `empty loot tables never resolve loot`() {
-        assertNull(NpcDeathAction.resolveLootContext(newPlayer(newWorld()), mutableSetOf()))
+        assertNull(NpcDeathAction.resolveLootContext(newPlayer(newWorld()), emptyList()))
     }
 
     @Test
