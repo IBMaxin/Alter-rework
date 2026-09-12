@@ -2,7 +2,7 @@
   {
     "taskName": "crawling_hand",
     "categoryId": 41,
-    "npcIds": ["npc.crawling_hand_453", "npc.crawling_hand_454"],
+    "npcIds": ["npc.crawling_hand_448", "npc.crawling_hand_449", "npc.crawling_hand_450", "npc.crawling_hand_451", "npc.crawling_hand_452", "npc.crawling_hand_453", "npc.crawling_hand_454"],
     "requiredLevel": 5,
     "xp": 12.0,
     "bonusXp": 300.0,

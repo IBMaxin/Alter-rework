@@ -1,5 +1,16 @@
 # Changelog
 
+## [Unreleased] - 2026-09-12
+
+### Added
+- **Slayer Tower drops** — per-monster drop tables for all 8 NPC types (crawling hand, banshee, infernal mage, bloodveld, aberrant spectre, gargoyle, nechryael, abyssal demon) via `onNpcDeath` handlers
+- **`SlayerTowerRegistryTest`** — cross-references every spawned NPC ID against the per-monster plugin registrations and resolves them through RSCM
+
+### Changed
+- **Slayer Tower content split per monster** — `SlayerTowerCombatPlugin.kt` and `SlayerTowerDropsPlugin.kt` replaced by one self-contained plugin per monster under `content/npcs/slayer_tower/<monster>/`, each owning its combat definition, drop table, and `NPC_IDS` list
+- **Bloodveld registration gap fixed** — bloodvelds `484-487` now all receive the Slayer 50 combat definition (previously only `484` was registered)
+- `SlayerTowerSpawnPlugin` now exposes `SPAWNED_NPC_IDS` for cross-reference testing
+
 ## [0.0.5] - 2026-09-10
 
 ### Added
