@@ -20,6 +20,9 @@ class TeleportsPlugin(
             val home = world.gameContext.home
             player.moveTo(home)
         }
+        onCommand("slayer", description = "Teleports you to the Slayer Tower") {
+            player.moveTo(Tile(x = 3500, z = 3500, height = 0))
+        }
         onCommand("edge", Privilege.Companion.ADMIN_POWER, description = "Teleports you to Edgeville") {
             player.moveTo(Tile(x = 3087, z = 3499, height = 0))
         }
