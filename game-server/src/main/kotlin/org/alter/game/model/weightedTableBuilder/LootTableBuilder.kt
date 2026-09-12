@@ -73,7 +73,7 @@ fun random(boundInclusive: Int) = random.nextInt(boundInclusive + 1)
 /**
  * Table rollers
  */
-fun LootTable.mainRoll(): Loot? {
+fun LootTable.mainRoll(rng: Random = random): Loot? {
     // Only positive weights contribute to the cumulative total; null, zero and
     // negative weights are ignored so a misconfigured entry can never be selected.
     val entries = drops.filter { (it.weight ?: 0) > 0 }
@@ -84,7 +84,7 @@ fun LootTable.mainRoll(): Loot? {
     if (configuredTotal <= 0) {
         return null
     }
-    val roll = random(configuredTotal)
+    val roll = rng.nextInt(configuredTotal) + 1
     var accumulated = 0
     for (loot in entries) {
         accumulated += loot.weight ?: 0

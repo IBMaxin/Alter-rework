@@ -41,6 +41,7 @@
 - [x] **Support multiple tables per `TableType`** — each `always`/`main`/`preroll`/`tertiary` block now creates its own table and `roll()` resolves every table of a type; `LootTables` is now a `List` instead of a `Set` — 2026-09-12
 - [x] **PRE_ROLL no longer replaces MAIN** — `roll()` rolls every PRE_ROLL table independently and always evaluates MAIN; a successful pre-roll no longer suppresses the main drop — 2026-09-12
 - [x] **Nested / independent drop tables** — multiple same-type slots plus nested `LootTable`/`KFunction` entries now cover OSRS multi-slot layouts — 2026-09-12
+- [x] **Fix `mainRoll()` inclusive bounds** — `mainRoll(rng)` now draws `1..tableWeight` (`rng.nextInt(tableWeight) + 1`); previously `random(tableWeight)` drew `0..tableWeight`, inflating the first entry's chance. Uniformity is locked by distribution tests — 2026-09-12
 
 ## Loot System — Content
 - [x] **Add drops to CowPlugin** — moved to `drops { always { bones, cowhide, raw beef } }` in `setCombatDef`; manual `onNpcDeath` spawn block deleted to avoid double drops — 2026-09-12

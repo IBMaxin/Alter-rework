@@ -16,6 +16,7 @@ import org.alter.game.model.weightedTableBuilder.preRoll
 import org.alter.game.model.weightedTableBuilder.roll
 import org.alter.game.model.weightedTableBuilder.tertiaryRoll
 import org.alter.game.saving.formats.SaveFormatType
+import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -296,5 +297,43 @@ class LootTableBuilderTest {
         assertEquals(4, builder.LootTables.size)
         assertEquals(2, builder.LootTables.count { it.tableType == TableType.ALWAYS })
         assertEquals(2, builder.LootTables.count { it.tableType == TableType.MAIN })
+    }
+
+    @Test
+    fun `main roll treats each equally weighted entry uniformly`() {
+        val entries = (1..4).map { Loot(item = it, min = 1, max = 1, weight = 1) }
+        val table = LootTable(TableType.MAIN, tableWeight = 4, drops = entries.toMutableSet())
+        val rng = Random(2026)
+        val counts = mutableMapOf<Loot, Int>()
+        val samples = 200_000
+
+        repeat(samples) {
+            val loot = table.mainRoll(rng)!!
+            counts.merge(loot, 1, Int::plus)
+        }
+
+        entries.forEach { entry ->
+            val share = counts.getValue(entry).toDouble() / samples
+            assertTrue(share in 0.24..0.26, "expected ~0.25 share for entry ${entry.item}, got $share")
+        }
+    }
+
+    @Test
+    fun `main roll honours entry weights`() {
+        val heavy = Loot(item = 1, min = 1, max = 1, weight = 3)
+        val light = Loot(item = 2, min = 1, max = 1, weight = 1)
+        val table = LootTable(TableType.MAIN, tableWeight = 4, drops = mutableSetOf(heavy, light))
+        val rng = Random(7)
+        val samples = 200_000
+        var heavyCount = 0
+
+        repeat(samples) {
+            if (table.mainRoll(rng) == heavy) {
+                heavyCount++
+            }
+        }
+
+        val share = heavyCount.toDouble() / samples
+        assertTrue(share in 0.74..0.76, "expected ~0.75 share for the weighted entry, got $share")
     }
 }
