@@ -19,3 +19,16 @@
 - `World.setNpcDefaults()` does not propagate `NpcCombatDef.attack/strength/defence/magic/ranged` into `Npc.Stats` — combat skill levels remain 1 at runtime despite definition. HP, attack speed, species, bonuses, and sounds work correctly.
 - `defence {}` DSL block in `NpcCombatDsl.kt:103-107` discards results — use `bonuses {}` instead
 - NPC "Broke" debug message in `CombatPlugin.kt:128` fires when pathfinding fails (pre-existing)
+
+## [0.0.5] - 2026-09-12
+
+### Added
+- **4 missing Slayer Tower tasks** — crawling hand (lvl 5), banshee (lvl 15), infernal mage (lvl 45), aberrant spectre (lvl 60) added to `tasks.json` and Duradel's task list
+- **Slayer Tower combat definitions** — `SlayerTowerCombatPlugin.kt` with `slayerData{}` blocks for all 8 NPC types (crawling hand, banshee, infernal mage, bloodveld, aberrant spectre, gargoyle, nechryael, abyssal demon)
+- **Floor-by-floor NPC spawns** — 37 spawns across 3 floors replacing 5x black_demon placeholders. Ground: crawling hands + banshees. 1st: bloodvelds + infernal mages + aberrant spectres. 2nd: gargoyles + nechryael + abyssal demons
+- **Slayer Tower staircase handlers** — 6 object handlers (2114, 2118-2122) in `LadderPlugin.kt` for climb-up/climb-down between all floors
+- **Test suite** — 30 new tests across 3 files: `SlayerTowerTasksTest` (8), `SlayerTowerCombatDefTest` (10), `SlayerTowerSpawnTest` (12)
+
+### Changed
+- Slayer Tower now fully populated with OSRS-accurate NPC distribution
+- Staircase objects in Slayer Tower are now interactive (were previously "I can't reach that!")
