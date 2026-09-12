@@ -31,17 +31,26 @@ object RSCM {
     }
 
     fun initRSCM() {
-        Path.of("../data/cfg/rscm/").toFile().listFiles()?.forEach {
-            val map = it.name.replace(".rscm", "")
-            it.bufferedReader(Charsets.UTF_8).use { buff ->
-                buff.lineSequence().forEach { line ->
+        Path.of("../data/cfg/rscm/").toFile().listFiles()?.forEach { file ->
+            val map = file.name.replace(".rscm", "")
+            file.bufferedReader(Charsets.UTF_8).use { buff ->
+                buff.lineSequence().forEachIndexed { index, line ->
+                    val trimmed = line.trim()
+                    if (trimmed.isEmpty() || trimmed.startsWith("#")) return@forEachIndexed
                     val divider = line.split(":")
                     if (divider.size == 2) {
                         val key = "$map." + divider[0].trim()
-                        val value = divider[1].trim().toInt()
+                        val value = divider[1].trim().toIntOrNull()
+                        if (value == null) {
+                            logger.warn {
+                                "Skipping malformed RSCM line in ${file.name}:${index + 1} - \"$trimmed\" " +
+                                    "(expected '<name>:<id>')"
+                            }
+                            return@forEachIndexed
+                        }
                         rscmList[key] = value
                     } else {
-                        println("$line not enough arguments")
+                        logger.warn { "$trimmed not enough arguments" }
                     }
                 }
             }
