@@ -15,6 +15,7 @@ import org.alter.game.model.queue.*
 import org.alter.game.model.shop.*
 import org.alter.game.model.timer.*
 import org.alter.game.plugin.*
+import org.alter.rscm.RSCM.getRSCM
 
 class KbdConfigsPlugin(
     r: PluginRepository,
@@ -25,9 +26,7 @@ class KbdConfigsPlugin(
     init {
         setMultiCombatRegion(region = 9033)
 
-        spawnNpc("npc.king_black_dragon", x = 2274, z = 4698, walkRadius = 5)
-
-        setCombatDef("npc.king_black_dragon") {
+        setCombatDef(NPC_ID) {
             species {
                 +NpcSpecies.DRACONIC
                 +NpcSpecies.BASIC_DRAGON
@@ -72,37 +71,64 @@ class KbdConfigsPlugin(
             //    xp = 258.0
             //}
 
-//    drops {
-//        position = Tile(x = 3222, z = 3222)
-//
-//        always {
-//            add(Items.DRAGON_BONES, 1)
-//            add(Items.BLACK_DRAGON_LEATHER, 1)
-//        }
-//
-//        main(tableWeight = 128) {
-//            add(itemid = Items.RUNE_LONGSWORD, min = 1, weight = 10)
-//            add(itemid = Items.ADAMANT_PLATEBODY, min = 1, weight = 9)
-//            add(itemid = Items.ADAMANT_KITESHIELD, min = 1, weight = 3)
-//            add(itemid = Items.DRAGON_MED_HELM, min = 1, weight = 1)
-//            add(itemid = Items.FIRE_RUNE, min = 300, weight = 5)
-//            add(itemid = Items.AIR_RUNE, min = 300, weight = 10)
-//            add(itemid = Items.IRON_ARROW, min = 690, weight = 10)
-//            add(itemid = Items.RUNITE_BOLTS, min = 10, weight = 10)
-//            add(itemid = Items.LAW_RUNE, min = 30, weight = 5)
-//            add(itemid = Items.BLOOD_RUNE, min = 30, weight = 5)
-//            add(itemid = Items.YEW_LOGS_NOTED, min = 150, weight = 10)
-//            add(itemid = Items.ADAMANTITE_BAR, min = 3, weight = 5)
-//            add(itemid = Items.RUNITE_BAR, min = 1, weight = 3)
-//            add(itemid = Items.GOLD_ORE_NOTED, min = 100, weight = 2)
-//            add(itemid = Items.AMULET_OF_POWER, min = 1, weight = 7)
-//            add(itemid = Items.DRAGON_ARROWTIPS, min = 5, weight = 5)
-//            add(itemid = Items.DRAGON_DART_TIP, min = 5, weight = 5)
-//            add(itemid = Items.DRAGON_JAVELIN_HEADS, min = 15, weight = 5)
-//            add(itemid = Items.RUNITE_LIMBS, min = 1, weight = 4)
-//            add(itemid = Items.SHARK, min = 4, weight = 4)
-//        }
-//    }
+            drops {
+                always {
+                    add(item = dragonBonesId, amount = 1)
+                    add(item = blackDragonLeatherId, amount = 1)
+                }
+
+                main(weight = MAIN_TABLE_WEIGHT) {
+                    add(item = runeLongswordId, min = 1, weight = 10)
+                    add(item = adamantPlatebodyId, min = 1, weight = 9)
+                    add(item = adamantKiteshieldId, min = 1, weight = 3)
+                    add(item = dragonMedHelmId, min = 1, weight = 1)
+                    add(item = fireRuneId, min = 300, weight = 5)
+                    add(item = airRuneId, min = 300, weight = 10)
+                    add(item = ironArrowId, min = 690, weight = 10)
+                    add(item = runiteBoltsId, min = 10, weight = 10)
+                    add(item = lawRuneId, min = 30, weight = 5)
+                    add(item = bloodRuneId, min = 30, weight = 5)
+                    add(item = yewLogsNotedId, min = 150, weight = 10)
+                    add(item = adamantiteBarId, min = 3, weight = 5)
+                    add(item = runiteBarId, min = 1, weight = 3)
+                    add(item = goldOreNotedId, min = 100, weight = 2)
+                    add(item = amuletOfPowerId, min = 1, weight = 7)
+                    add(item = dragonArrowtipsId, min = 5, weight = 5)
+                    add(item = dragonDartTipId, min = 5, weight = 5)
+                    add(item = dragonJavelinHeadsId, min = 15, weight = 5)
+                    add(item = runiteLimbsId, min = 1, weight = 4)
+                    add(item = sharkId, min = 4, weight = 4)
+                }
+            }
         }
+    }
+
+    companion object {
+        const val NPC_ID = "npc.king_black_dragon"
+
+        private const val MAIN_TABLE_WEIGHT = 128
+
+        private val dragonBonesId get() = getRSCM("item.dragon_bones")
+        private val blackDragonLeatherId get() = getRSCM("item.black_dragon_leather")
+        private val runeLongswordId get() = getRSCM("item.rune_longsword")
+        private val adamantPlatebodyId get() = getRSCM("item.adamant_platebody")
+        private val adamantKiteshieldId get() = getRSCM("item.adamant_kiteshield")
+        private val dragonMedHelmId get() = getRSCM("item.dragon_med_helm")
+        private val fireRuneId get() = getRSCM("item.fire_rune")
+        private val airRuneId get() = getRSCM("item.air_rune")
+        private val ironArrowId get() = getRSCM("item.iron_arrow")
+        private val runiteBoltsId get() = getRSCM("item.runite_bolts")
+        private val lawRuneId get() = getRSCM("item.law_rune")
+        private val bloodRuneId get() = getRSCM("item.blood_rune")
+        private val yewLogsNotedId get() = getRSCM("item.yew_logs_noted")
+        private val adamantiteBarId get() = getRSCM("item.adamantite_bar")
+        private val runiteBarId get() = getRSCM("item.runite_bar")
+        private val goldOreNotedId get() = getRSCM("item.gold_ore_noted")
+        private val amuletOfPowerId get() = getRSCM("item.amulet_of_power")
+        private val dragonArrowtipsId get() = getRSCM("item.dragon_arrowtips")
+        private val dragonDartTipId get() = getRSCM("item.dragon_dart_tip")
+        private val dragonJavelinHeadsId get() = getRSCM("item.dragon_javelin_heads")
+        private val runiteLimbsId get() = getRSCM("item.runite_limbs")
+        private val sharkId get() = getRSCM("item.shark")
     }
 }
