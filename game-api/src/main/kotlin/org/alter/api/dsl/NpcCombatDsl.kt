@@ -6,6 +6,7 @@ import org.alter.api.ext.NPC_MAGIC_DAMAGE_BONUS_INDEX
 import org.alter.api.ext.NPC_RANGED_STRENGTH_BONUS_INDEX
 import org.alter.api.ext.NPC_STRENGTH_BONUS_INDEX
 import org.alter.api.ext.enumSetOf
+import org.alter.game.model.combat.NpcSkills
 import org.alter.game.plugin.KotlinPlugin
 
 fun KotlinPlugin.setCombatDef(

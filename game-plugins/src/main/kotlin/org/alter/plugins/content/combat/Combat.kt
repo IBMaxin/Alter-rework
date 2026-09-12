@@ -9,6 +9,7 @@ import org.alter.game.model.attr.LAST_HIT_ATTR
 import org.alter.game.model.attr.LAST_HIT_BY_ATTR
 import org.alter.game.model.collision.rayCast
 import org.alter.game.model.combat.CombatClass
+import org.alter.game.model.combat.NpcSkills
 import org.alter.game.model.entity.AreaSound
 import org.alter.game.model.entity.Npc
 import org.alter.game.model.entity.Pawn

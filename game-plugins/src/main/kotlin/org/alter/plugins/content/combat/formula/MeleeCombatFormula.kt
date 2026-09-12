@@ -2,6 +2,7 @@ package org.alter.plugins.content.combat.formula
 
 import org.alter.game.model.combat.AttackStyle
 import org.alter.game.model.combat.CombatStyle
+import org.alter.game.model.combat.NpcSkills
 import org.alter.game.model.entity.Npc
 import org.alter.game.model.entity.Pawn
 import org.alter.game.model.entity.Player

@@ -20,6 +20,7 @@ import org.alter.game.fs.ObjectExamineHolder
 import org.alter.game.model.attr.AttributeMap
 import org.alter.game.model.collision.isClipped
 import org.alter.game.model.combat.NpcCombatDef
+import org.alter.game.model.combat.NpcSkills
 import org.alter.game.model.entity.*
 import org.alter.game.model.instance.InstancedMapAllocator
 import org.alter.game.model.priv.PrivilegeSet
@@ -637,6 +638,16 @@ class World(val gameContext: GameContext, val devContext: DevContext) {
         npc.combatDef = combatDef
         npc.combatDef.bonuses.forEachIndexed { index, bonus -> npc.equipmentBonuses[index] = bonus }
         npc.respawns = combatDef.respawnDelay > 0
+        npc.stats.setMaxLevel(NpcSkills.ATTACK, combatDef.attack)
+        npc.stats.setMaxLevel(NpcSkills.STRENGTH, combatDef.strength)
+        npc.stats.setMaxLevel(NpcSkills.DEFENCE, combatDef.defence)
+        npc.stats.setMaxLevel(NpcSkills.MAGIC, combatDef.magic)
+        npc.stats.setMaxLevel(NpcSkills.RANGED, combatDef.ranged)
+        npc.stats.setCurrentLevel(NpcSkills.ATTACK, combatDef.attack)
+        npc.stats.setCurrentLevel(NpcSkills.STRENGTH, combatDef.strength)
+        npc.stats.setCurrentLevel(NpcSkills.DEFENCE, combatDef.defence)
+        npc.stats.setCurrentLevel(NpcSkills.MAGIC, combatDef.magic)
+        npc.stats.setCurrentLevel(NpcSkills.RANGED, combatDef.ranged)
         npc.setCurrentHp(npc.combatDef.hitpoints)
     }
 

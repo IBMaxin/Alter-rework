@@ -26,17 +26,6 @@ data class ElementalWeakness(var element: Elements, var percent: Int)
 
 /**
  * @author Tom <rspsmods@gmail.com>
- */
-object NpcSkills {
-    const val ATTACK = 0
-    const val STRENGTH = 1
-    const val DEFENCE = 2
-    const val MAGIC = 3
-    const val RANGED = 4
-}
-
-/**
- * @author Tom <rspsmods@gmail.com>
  * https://oldschool.runescape.wiki/w/Monster_attribute
  */
 enum class NpcSpecies {
