@@ -23,6 +23,9 @@ class TeleportsPlugin(
         onCommand("slayer", description = "Teleports you to the Slayer Tower") {
             player.moveTo(Tile(x = 3500, z = 3500, height = 0))
         }
+        onCommand("blackdemons", description = "Teleports you to the Black Demons") {
+            player.moveTo(Tile(x = 2863, z = 9777, height = 0))
+        }
         onCommand("edge", Privilege.Companion.ADMIN_POWER, description = "Teleports you to Edgeville") {
             player.moveTo(Tile(x = 3087, z = 3499, height = 0))
         }
