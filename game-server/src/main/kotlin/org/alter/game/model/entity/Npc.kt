@@ -111,10 +111,10 @@ class Npc private constructor(val id: Int, world: World, val spawnTile: Tile) : 
 
     /**
      * Set which routefinder logic to use.
-     * 0 = Dumb route finder.
-     * 1 = Smart route finder.
+     * 0 = Dumb route finder (single-step naive).
+     * 1 = Smart route finder (A* pathfinding).
      */
-    var routeLogic = 0
+    var routeLogic = 1
 
     /**
      * Getter property for our npc name.

@@ -81,31 +81,33 @@ class LadderPlugin(
             }
         }
 
-        /**Slayer Tower staircases.*/
-        onObjOption(obj = 2114, option = "climb-up") {
+        /**Slayer Tower staircases. lineOfSightDistance allows interaction
+         *  from an adjacent tile without requiring route-finding through
+         *  the impenetrable staircase object. */
+        onObjOption(obj = 2114, option = "climb-up", lineOfSightDistance = 2) {
             climbupstairs(player)
         }
-        onObjOption(obj = 2119, option = "climb-up") {
+        onObjOption(obj = 2119, option = "climb-up", lineOfSightDistance = 2) {
             climbupstairs(player)
         }
-        onObjOption(obj = 2121, option = "climb-up") {
+        onObjOption(obj = 2121, option = "climb-up", lineOfSightDistance = 2) {
             climbupstairs(player)
         }
-        onObjOption(obj = 2118, option = "climb-down") {
+        onObjOption(obj = 2118, option = "climb-down", lineOfSightDistance = 2) {
             climbdownstairs(player)
         }
-        onObjOption(obj = 2120, option = "climb-down") {
+        onObjOption(obj = 2120, option = "climb-down", lineOfSightDistance = 2) {
             climbdownstairs(player)
         }
-        onObjOption(obj = 2122, option = "climb-down") {
+        onObjOption(obj = 2122, option = "climb-down", lineOfSightDistance = 2) {
             climbdownstairs(player)
         }
 
         /**Slayer Tower spikey chains.*/
-        onObjOption(obj = 16537, option = "climb-up") {
+        onObjOption(obj = 16537, option = "climb-up", lineOfSightDistance = 2) {
             climbupstairs(player)
         }
-        onObjOption(obj = 16538, option = "climb-down") {
+        onObjOption(obj = 16538, option = "climb-down", lineOfSightDistance = 2) {
             climbdownstairs(player)
         }
 
