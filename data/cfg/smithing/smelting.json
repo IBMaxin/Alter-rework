@@ -1,0 +1,13 @@
+[
+  {
+    "name": "bronze bar",
+    "inputs": [
+      { "item": "item.copper_ore", "amount": 1 },
+      { "item": "item.tin_ore", "amount": 1 }
+    ],
+    "output": "item.bronze_bar",
+    "outputAmount": 1,
+    "level": 1,
+    "experience": 6.2
+  }
+]
