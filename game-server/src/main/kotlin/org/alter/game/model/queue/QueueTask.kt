@@ -6,6 +6,7 @@ import org.alter.game.model.entity.Pawn
 import org.alter.game.model.entity.Player
 import org.alter.game.model.queue.coroutine.*
 import kotlin.coroutines.*
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Represents a task that can be paused, or suspended, and resumed at any point
@@ -49,7 +50,11 @@ data class QueueTask(val ctx: Any, val priority: TaskPriority) : Continuation<Un
      */
     override fun resumeWith(result: Result<Unit>) {
         nextStep = null
-        result.exceptionOrNull()?.let { e -> logger.error(e) { "Error with plugin!" } }
+        result.exceptionOrNull()?.let { e ->
+            if (e !is QueueTaskTermination) {
+                logger.error(e) { "Error with plugin!" }
+            }
+        }
     }
 
     /**
@@ -68,11 +73,37 @@ data class QueueTask(val ctx: Any, val priority: TaskPriority) : Continuation<Un
     /**
      * Terminate any further execution of this task, during any state,
      * and invoke [terminateAction] if applicable (not null).
+     *
+     * If the task is currently suspended, its captured continuation is
+     * resumed with a [QueueTaskTermination] signal so that any `finally`
+     * blocks run. Ordinary code after the suspension point is not executed,
+     * as the signal is thrown at the suspension point.
      */
     fun terminate() {
+        /*
+         * Detach the suspended continuation before resuming it so that a
+         * second call to [terminate] cannot resume it again.
+         */
+        val step = nextStep
         nextStep = null
         requestReturnValue = null
-        terminateAction?.invoke(this)
+
+        if (invoked && step != null) {
+            step.continuation.resumeWith(Result.failure(QueueTaskTermination()))
+        }
+
+        /*
+         * Invoke [terminateAction] at most once, and make sure a failure in it
+         * cannot prevent the cleanup above (or the termination of any other
+         * task) from completing.
+         */
+        val action = terminateAction
+        terminateAction = null
+        try {
+            action?.invoke(this)
+        } catch (e: Exception) {
+            logger.error(e) { "Error running terminate action!" }
+        }
     }
 
     /**
@@ -148,6 +179,16 @@ data class QueueTask(val ctx: Any, val priority: TaskPriority) : Continuation<Un
         result = 31 * result + coroutine.hashCode()
         return result
     }
+
+    /**
+     * The expected failure used to resume a suspended task's continuation when
+     * the task is terminated.
+     *
+     * It extends [CancellationException] so it behaves like an expected
+     * cancellation, and it is a private type so [resumeWith] can distinguish it
+     * from unexpected errors instead of swallowing those.
+     */
+    private class QueueTaskTermination : CancellationException("Queue task terminated")
 
     class EmptyReturnValue
 

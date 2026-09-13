@@ -52,7 +52,19 @@ abstract class QueueTaskSet {
      * before-hand.
      */
     fun terminateTasks() {
-        queue.forEach { it.terminate() }
+        if (queue.isEmpty()) {
+            return
+        }
+        /*
+         * Snapshot and detach the current tasks before terminating any of them.
+         * Task cleanup (for example, a `finally` block) may queue replacement
+         * work; detaching first means that work is neither lost nor able to
+         * cause a concurrent modification while tasks are being terminated.
+         */
+        val tasks = ArrayList(queue)
         queue.clear()
+        for (task in tasks) {
+            task.terminate()
+        }
     }
 }

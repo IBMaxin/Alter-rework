@@ -14,17 +14,12 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /**
- * Characterization tests for the current (pre-fix) behavior of [QueueTask]
- * termination while the task is suspended.
+ * Regression tests for [QueueTask] termination while the task is suspended.
  *
- * These tests intentionally pin the *existing defect*: a suspended queue body
- * that holds a pawn `FULL` lock and relies on a `finally` block to release it
- * will not run that `finally` block when the task is terminated, because
- * [QueueTask.terminate] clears the captured suspension continuation without
- * resuming it. The pawn is therefore left permanently locked.
- *
- * Do not "fix" these expectations here. They exist so the eventual engine fix
- * produces a visible, reviewable behavior change.
+ * When a suspended task is terminated, its captured continuation is resumed
+ * with an expected private termination signal. Kotlin then runs any `finally`
+ * blocks (so cleanup such as releasing a pawn `FULL` lock happens) but does not
+ * execute ordinary code after the suspension point.
  *
  * The tests are fully deterministic: no sleeping, no threads, no randomness,
  * no cache, no client/network. The queue is pumped manually with
@@ -70,11 +65,12 @@ class QueueTaskTerminationTest {
     }
 
     @Test
-    fun `terminated suspended task holding FULL lock never runs finally so pawn stays locked`() {
+    fun `terminated suspended task runs finally, releases lock, and skips post-suspension code`() {
         val world = newWorld()
         val player = newPlayer(world)
 
         var finallyRan = false
+        var postSuspensionRan = false
 
         player.queue {
             player.lock()
@@ -82,6 +78,7 @@ class QueueTaskTerminationTest {
                 // Suspend far beyond the single pumped cycle so the task stays
                 // suspended until it is explicitly interrupted.
                 wait(1_000_000)
+                postSuspensionRan = true
             } finally {
                 finallyRan = true
                 player.unlock()
@@ -97,13 +94,9 @@ class QueueTaskTerminationTest {
         // Normal queue interruption path, e.g. Pawn.attack -> interruptQueues.
         player.interruptQueues()
 
-        // Pump only what is needed to process the interruption.
-        player.queues.cycle()
-
-        // Current behavior: termination abandons the suspended continuation
-        // without resuming it, so the finally-based lock release never executes.
-        assertTrue(player.isLocked(), "current behavior: pawn remains locked after task termination")
-        assertFalse(finallyRan, "current behavior: finally block never runs for a terminated suspended task")
+        assertTrue(finallyRan, "finally must run when a suspended task is terminated")
+        assertFalse(player.isLocked(), "finally must release the FULL lock held by the terminated task")
+        assertFalse(postSuspensionRan, "ordinary code after the suspension point must not execute")
         assertEquals(0, player.queues.size, "terminated task should be removed from the queue")
     }
 
@@ -126,13 +119,107 @@ class QueueTaskTerminationTest {
         assertTrue(player.isLocked(), "precondition: suspended task holds the FULL lock")
 
         player.interruptQueues()
-        player.queues.cycle()
 
         assertFalse(
             postSuspensionRan,
-            "current behavior: a terminated suspended task must not execute code after its suspension point",
+            "a terminated suspended task must not execute code after its suspension point",
         )
-        assertTrue(player.isLocked(), "current behavior: lock held at suspension is never released")
+        assertTrue(player.isLocked(), "without a finally block the lock is never released")
         assertEquals(0, player.queues.size, "terminated task should be removed from the queue")
+    }
+
+    @Test
+    fun `bulk termination keeps replacement task queued from terminated task cleanup`() {
+        val world = newWorld()
+        val player = newPlayer(world)
+
+        var finallyRan = false
+        var replacementRan = false
+
+        player.queue {
+            try {
+                wait(1_000_000)
+            } finally {
+                finallyRan = true
+                // Replacement work queued from cleanup must survive the
+                // in-progress bulk termination.
+                player.queue {
+                    replacementRan = true
+                }
+            }
+        }
+
+        player.queues.cycle()
+        assertEquals(1, player.queues.size, "precondition: one suspended task is queued")
+
+        player.interruptQueues()
+
+        assertTrue(finallyRan, "cleanup must run during bulk termination")
+        assertEquals(1, player.queues.size, "replacement work queued from cleanup must not be cleared")
+
+        player.queues.cycle()
+        assertTrue(replacementRan, "replacement work must be runnable after bulk termination")
+        assertEquals(0, player.queues.size, "replacement work should complete and be removed")
+    }
+
+    @Test
+    fun `terminating a task twice runs finally exactly once`() {
+        val world = newWorld()
+        val player = newPlayer(world)
+
+        var finallyRuns = 0
+        var task: QueueTask? = null
+
+        player.queue {
+            task = this
+            try {
+                wait(1_000_000)
+            } finally {
+                finallyRuns++
+            }
+        }
+
+        player.queues.cycle()
+        assertTrue(task!!.suspended(), "precondition: task is suspended")
+
+        task.terminate()
+        task.terminate()
+
+        assertEquals(1, finallyRuns, "finally must run exactly once for a terminated suspended task")
+
+        player.queues.cycle()
+        assertEquals(0, player.queues.size, "terminated task should be removed from the queue")
+    }
+
+    @Test
+    fun `terminateAction runs once and its failure does not prevent finally cleanup`() {
+        val world = newWorld()
+        val player = newPlayer(world)
+
+        var finallyRan = false
+        var terminateActions = 0
+        var task: QueueTask? = null
+
+        player.queue {
+            task = this
+            terminateAction = {
+                terminateActions++
+                error("terminate action failure")
+            }
+            try {
+                wait(1_000_000)
+            } finally {
+                finallyRan = true
+            }
+        }
+
+        player.queues.cycle()
+        assertTrue(task!!.suspended(), "precondition: task is suspended")
+
+        task.terminate()
+        task.terminate()
+
+        assertTrue(finallyRan, "finally cleanup must run even when terminateAction fails")
+        assertEquals(1, terminateActions, "terminateAction must run at most once")
     }
 }
