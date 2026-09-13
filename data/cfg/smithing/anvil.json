@@ -1,0 +1,15 @@
+[
+  {
+    "name": "bronze dagger",
+    "objectKey": "object.anvil",
+    "objectVariants": ["object.rusted_anvil"],
+    "input": "item.bronze_bar",
+    "inputAmount": 1,
+    "tool": "item.hammer",
+    "toolAmount": 1,
+    "output": "item.bronze_dagger",
+    "outputAmount": 1,
+    "level": 1,
+    "experience": 12.5
+  }
+]
