@@ -14,8 +14,8 @@
 - [x] Split Slayer Tower combat/drops into one self-contained plugin per monster — 2026-09-12
 - [x] Register bloodvelds 484-487 (previously only 484 had a combat def) — 2026-09-12
 - [ ] **Slayer Tower staircase route-finding** — diagnostic dump complete (2026-09-12). Objects 2114/2119/2121 are 2x4 `clipMask=11`; 2118/2120/2122 are 2x2 `clipMask=14`; all `impenetrable=true`, `mapSceneID=7`, `actions=[Climb-up|down]`. Nonzero clipMask correlates with failure (working stairs 16671/16672 and ladders 12964/12965 have `clipMask=0`). **Correction:** the routefinder (`rsmod-routefinder` 6.0.0) docs state `destWidth/destLength` must be passed *unrotated* (rotated internally) and `blockAccessFlags` is designed for exactly this staircase case — so the planned "rotation fix" is invalid and was NOT applied. `ObjectPathAction.walkTo` returns `Route.FAILED` when `findClosestApproachPoint` finds no reachable tile within ±10 of the destination, which needs a runtime reproduction with the live collision map to confirm. Do not guess an engine fix.
-- [ ] **Add spikey chain handler** — object 16537 (`spikey_chain`, has RSCM mapping) gets "Nothing interesting happens". Route-finding succeeds but no plugin bound. Add `onObjOption("object.spikey_chain", "climb-up")` handler
-- [ ] **Add Slayer Tower door handlers** — objects 2111/2112/2113 need opened-variant IDs discovered at runtime before implementation
+- [x] **Add spikey chain handler** — object 16538 (`spikey_chain`, RSCM confirmed) bound in `LadderPlugin.kt` with `climbupstairs` — 2026-09-13
+- [x] **Add Slayer Tower door handlers** — objects 2108↔2113 and 2111↔2112 added to `single-doors.json`; id-swap confirmed via runtime diagnostics (`varbitId=-1`) — 2026-09-13
 - [ ] Add more slayer masters (Vannaka, Chaeldar, Konar, Nieve, Duradel)
 - [ ] Implement slayer points shop
 - [ ] Add superior slayer monsters

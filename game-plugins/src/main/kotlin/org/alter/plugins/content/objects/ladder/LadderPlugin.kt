@@ -101,6 +101,14 @@ class LadderPlugin(
             climbdownstairs(player)
         }
 
+        /**Slayer Tower spikey chains.*/
+        onObjOption(obj = 16537, option = "climb-up") {
+            climbupstairs(player)
+        }
+        onObjOption(obj = 16538, option = "climb-down") {
+            climbdownstairs(player)
+        }
+
         /**Trapdoors.*/
 
         onObjOption("object.trapdoor_14880", option = "climb-down") {
