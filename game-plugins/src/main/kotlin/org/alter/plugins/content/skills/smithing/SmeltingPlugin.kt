@@ -77,7 +77,7 @@ class SmeltingPlugin(
     }
 
     private companion object {
-        val FURNACES = listOf("object.furnace", "object.furnace_16469")
+        val FURNACES = listOf("object.furnace", "object.furnace_16469", "object.furnace_24009")
     }
 }
 
