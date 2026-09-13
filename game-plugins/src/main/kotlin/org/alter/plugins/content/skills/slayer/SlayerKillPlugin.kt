@@ -1,5 +1,6 @@
 package org.alter.plugins.content.skills.slayer
 
+import dev.openrune.cache.CacheManager.getNpc
 import org.alter.api.Skills
 import org.alter.api.ext.message
 import org.alter.game.Server
@@ -35,16 +36,35 @@ class SlayerKillPlugin(
             killer.addXp(Skills.SLAYER, result.xp + result.bonusXp)
 
             if (result.completed) {
+                val taskDisplayName = assigned.displayName
+                val masterNpcId = killer.attr[SLAYER_MASTER_ATTR]
+
                 killer.attr.remove(SLAYER_TASK_ATTR)
                 killer.attr.remove(SLAYER_REMAINING_ATTR)
                 killer.attr.remove(SLAYER_MASTER_ATTR)
                 if (result.pointsAwarded > 0) {
                     killer.attr[SLAYER_POINTS_ATTR] = (killer.attr[SLAYER_POINTS_ATTR] ?: 0) + result.pointsAwarded
                 }
-                killer.message("You have completed your Slayer task.")
+
+                killer.message("You have completed your $taskDisplayName Slayer task.")
+                val masterName = masterNpcId?.let { resolveMasterName(it) }
+                if (masterName != null) {
+                    killer.message("Return to $masterName for a new assignment.")
+                }
             } else {
                 killer.attr[SLAYER_REMAINING_ATTR] = result.remaining
             }
         }
     }
+
+    /**
+     * Resolves the human-readable name of the master that assigned the task.
+     *
+     * Returns `null` when the name cannot be resolved so that completion is
+     * never blocked by a cache lookup failure.
+     */
+    private fun resolveMasterName(npcId: Int): String? =
+        runCatching { getNpc(npcId).name }
+            .getOrNull()
+            ?.takeIf { it.isNotBlank() && !it.equals("null", ignoreCase = true) }
 }

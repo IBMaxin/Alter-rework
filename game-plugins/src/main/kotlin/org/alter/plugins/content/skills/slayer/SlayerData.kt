@@ -10,6 +10,17 @@ package org.alter.plugins.content.skills.slayer
  */
 data class SlayerTaskEntry(
     val taskName: String,
+    /**
+     * Human-readable, player-facing label for this task (for example
+     * `"Black demons"`). Authored explicitly in [data/cfg/slayer/tasks.json];
+     * never derived from [taskName] at runtime.
+     *
+     * The placeholder default exists only so that direct construction that
+     * predates this field remains valid. Gson bypasses constructor defaults, so
+     * loaded configuration must still supply a non-blank value or [validate]
+     * rejects it.
+     */
+    val displayName: String = "Unknown",
     val categoryId: Int,
     val npcIds: List<String>,
     val requiredLevel: Int,
@@ -34,6 +45,7 @@ data class SlayerTaskEntry(
      */
     fun validate() {
         require(taskName.isNotBlank()) { "Slayer task name cannot be blank." }
+        require(!displayName.isNullOrBlank()) { "Slayer task display name cannot be blank." }
         require(categoryId >= 0) { "Slayer task category id cannot be negative." }
         require(npcIds.isNotEmpty()) { "Slayer task must define at least one npc id." }
         require(requiredLevel >= 1) { "Slayer task level requirement must be >= 1." }

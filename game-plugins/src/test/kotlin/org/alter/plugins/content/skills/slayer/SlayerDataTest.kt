@@ -14,6 +14,7 @@ class SlayerDataTest {
         val task =
             SlayerTaskEntry(
                 taskName = "goblins",
+                displayName = "Goblins",
                 categoryId = 2,
                 npcIds = listOf("npc.goblin_1", "npc.goblin_2"),
                 requiredLevel = 1,
@@ -25,6 +26,7 @@ class SlayerDataTest {
             )
 
         assertEquals("goblins", task.taskName)
+        assertEquals("Goblins", task.displayName)
         assertEquals(2, task.categoryId)
         assertEquals(2, task.npcIds.size)
     }
@@ -33,6 +35,13 @@ class SlayerDataTest {
     fun `task entry rejects a blank task name`() {
         assertFailsWith<IllegalArgumentException> {
             validTask().copy(taskName = "  ")
+        }
+    }
+
+    @Test
+    fun `task entry rejects a blank display name`() {
+        assertFailsWith<IllegalArgumentException> {
+            validTask().copy(displayName = "  ")
         }
     }
 
@@ -138,6 +147,7 @@ class SlayerDataTest {
     private fun validTask() =
         SlayerTaskEntry(
             taskName = "goblins",
+            displayName = "Goblins",
             categoryId = 2,
             npcIds = listOf("npc.goblin_1"),
             requiredLevel = 1,

@@ -42,9 +42,9 @@ class SlayerPlugin(
 
         if (assigned != null) {
             val remaining = player.attr[SLAYER_REMAINING_ATTR] ?: 0
-            chatNpc(player, "You're still hunting ${assigned.taskName}; you have $remaining to go.")
+            chatNpc(player, "You're still hunting ${assigned.displayName}; you have $remaining to go.")
             if (options(player, "Got any tips?", "Goodbye.") == 1) {
-                chatNpc(player, "Kill $remaining more ${assigned.taskName} and return to me.")
+                chatNpc(player, "Kill $remaining more ${assigned.displayName} and return to me.")
             }
             return
         }
@@ -79,6 +79,6 @@ class SlayerPlugin(
         player.attr[SLAYER_TASK_ATTR] = assignment.task.categoryId
         player.attr[SLAYER_REMAINING_ATTR] = assignment.amount
         player.attr[SLAYER_MASTER_ATTR] = master.npcId
-        player.message("Your new task is to kill ${assignment.amount} ${assignment.task.taskName}.")
+        player.message("Your new task is to kill ${assignment.amount} ${assignment.task.displayName}.")
     }
 }

@@ -1,6 +1,7 @@
 [
   {
     "taskName": "crawling_hand",
+    "displayName": "Crawling hands",
     "categoryId": 41,
     "npcIds": ["npc.crawling_hand_448", "npc.crawling_hand_449", "npc.crawling_hand_450", "npc.crawling_hand_451", "npc.crawling_hand_452", "npc.crawling_hand_453", "npc.crawling_hand_454"],
     "requiredLevel": 5,
@@ -13,6 +14,7 @@
   },
   {
     "taskName": "banshee",
+    "displayName": "Banshees",
     "categoryId": 43,
     "npcIds": ["npc.banshee_414"],
     "requiredLevel": 15,
@@ -25,6 +27,7 @@
   },
   {
     "taskName": "infernal_mage",
+    "displayName": "Infernal mages",
     "categoryId": 44,
     "npcIds": ["npc.infernal_mage_443", "npc.infernal_mage_444", "npc.infernal_mage_445", "npc.infernal_mage_446", "npc.infernal_mage_447"],
     "requiredLevel": 45,
@@ -37,6 +40,7 @@
   },
   {
     "taskName": "aberrant_spectre",
+    "displayName": "Aberrant spectres",
     "categoryId": 47,
     "npcIds": ["npc.aberrant_spectre_2", "npc.aberrant_spectre_3", "npc.aberrant_spectre_4", "npc.aberrant_spectre_5", "npc.aberrant_spectre_6", "npc.aberrant_spectre_7"],
     "requiredLevel": 60,
@@ -49,6 +53,7 @@
   },
   {
     "taskName": "gargoyles",
+    "displayName": "Gargoyles",
     "categoryId": 46,
     "npcIds": ["npc.gargoyle_412", "npc.gargoyle_413", "npc.gargoyle_1543"],
     "requiredLevel": 75,
@@ -61,6 +66,7 @@
   },
   {
     "taskName": "nechryael",
+    "displayName": "Nechryael",
     "categoryId": 52,
     "npcIds": ["npc.nechryael_8", "npc.nechryael_11"],
     "requiredLevel": 80,
@@ -73,6 +79,7 @@
   },
   {
     "taskName": "abyssal_demons",
+    "displayName": "Abyssal demons",
     "categoryId": 42,
     "npcIds": ["npc.abyssal_demon_415", "npc.abyssal_demon_416", "npc.abyssal_demon_7241", "npc.abyssal_demon_11239"],
     "requiredLevel": 85,
@@ -85,6 +92,7 @@
   },
   {
     "taskName": "dust_devils",
+    "displayName": "Dust devils",
     "categoryId": 49,
     "npcIds": ["npc.dust_devil_423", "npc.dust_devil_7249", "npc.dust_devil_11238"],
     "requiredLevel": 70,
@@ -97,6 +105,7 @@
   },
   {
     "taskName": "bloodveld",
+    "displayName": "Bloodveld",
     "categoryId": 48,
     "npcIds": ["npc.bloodveld_484", "npc.bloodveld_485", "npc.bloodveld_486", "npc.bloodveld_487", "npc.bloodveld_3138", "npc.mutated_bloodveld", "npc.mutated_bloodveld_9610", "npc.mutated_bloodveld_9611"],
     "requiredLevel": 50,
@@ -109,6 +118,7 @@
   },
   {
     "taskName": "greater_demons",
+    "displayName": "Greater demons",
     "categoryId": 29,
     "npcIds": ["npc.greater_demon", "npc.greater_demon_2026", "npc.greater_demon_2027", "npc.greater_demon_2028", "npc.greater_demon_2029", "npc.greater_demon_2030", "npc.greater_demon_2031", "npc.greater_demon_2032", "npc.greater_demon_7244", "npc.greater_demon_7245", "npc.greater_demon_7246", "npc.greater_demon_7871", "npc.greater_demon_7872", "npc.greater_demon_7873", "npc.greater_demon_12387"],
     "requiredLevel": 1,
@@ -121,6 +131,7 @@
   },
   {
     "taskName": "black_demons",
+    "displayName": "Black demons",
     "categoryId": 30,
     "npcIds": ["npc.black_demon_1432"],
     "requiredLevel": 1,
@@ -133,6 +144,7 @@
   },
   {
     "taskName": "hellhounds",
+    "displayName": "Hellhounds",
     "categoryId": 31,
     "npcIds": ["npc.hellhound_104", "npc.hellhound_105", "npc.hellhound_3133", "npc.hellhound_7256", "npc.hellhound_7877"],
     "requiredLevel": 1,
@@ -145,6 +157,7 @@
   },
   {
     "taskName": "kalphite",
+    "displayName": "Kalphites",
     "categoryId": 53,
     "npcIds": ["npc.kalphite_worker", "npc.kalphite_worker_956", "npc.kalphite_worker_961", "npc.kalphite_soldier_957", "npc.kalphite_soldier_958", "npc.kalphite_guardian", "npc.kalphite_guardian_960", "npc.kalphite_guardian_962"],
     "requiredLevel": 1,
@@ -157,6 +170,7 @@
   },
   {
     "taskName": "warped_creatures",
+    "displayName": "Warped creatures",
     "categoryId": 122,
     "npcIds": ["npc.warped_terrorbird", "npc.warped_terrorbird_12492", "npc.warped_terrorbird_12493", "npc.warped_terrorbird_12494", "npc.warped_terrorbird_12495", "npc.warped_terrorbird_12496", "npc.warped_terrorbird_12497", "npc.warped_terrorbird_12498", "npc.warped_terrorbird_12499", "npc.warped_terrorbird_12500", "npc.warped_terrorbird_12501", "npc.warped_tortoise", "npc.mutated_terrorbird", "npc.mutated_tortoise"],
     "requiredLevel": 56,
